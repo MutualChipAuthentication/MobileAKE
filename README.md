@@ -57,8 +57,22 @@ SDK_VERSION="6.1"
 
 ### Compiled static library
 
-see [cryptopp561.a.7z](https://github.com/rablwupei/CryptoPP-for-iOS/cryptopp561.a.7z), you can use it directly
+see [cryptopp561.a.7z](https://app.box.com/s/68zy3oeyzbqxh39ymglk), you can use it directly
 
 ### Use it in Xcode
 
-Please ensure that your Xcode project "C++ Language Dialect" and "C++ standard Library" is "Compiler Default", otherwise it will compile error
+Config your Xcode project, otherwise it will compile error
+
+1. Set "C++ Language Dialect" and "C++ standard Library" is "Compiler Default"
+2. Add "Header Search Paths"
+
+```
+"$(SRCROOT)/external/include"
+"$(SRCROOT)/external/include/cryptopp"
+``` 
+
+3. Add "Library Search Paths"
+
+```
+"$(SRCROOT)/external/lib"
+``` 
