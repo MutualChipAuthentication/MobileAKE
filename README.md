@@ -13,13 +13,15 @@ check libcryptopp.a using file commad like this
 
 > file external/lib/libcryptopp.a
 > 
-> external/lib/libcryptopp.a: Mach-O universal binary with 3 architectures
+> external/lib/libcryptopp.a: Mach-O universal binary with 4 architectures
 > 
 > external/lib/libcryptopp.a (for architecture i386):	current ar archive random library
 > 
 > external/lib/libcryptopp.a (for architecture armv6):	current ar archive random library
 > 
 > external/lib/libcryptopp.a (for architecture armv7):	current ar archive random library
+> 
+> external/lib/libcryptopp.a (for architecture armv7s):	current ar archive random library
       
 now, you get a universal binary of Crypto++
 
