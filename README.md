@@ -59,7 +59,7 @@ SDK_VERSION="6.1"
 
 ### Compiled static library
 
-see [cryptopp561.a.7z](https://app.box.com/s/68zy3oeyzbqxh39ymglk), you can use it directly
+see [cryptopp561.a.7z (i386,armv6,armv7)](https://app.box.com/s/68zy3oeyzbqxh39ymglk), you can use it directly
 
 ### Use it in Xcode
 

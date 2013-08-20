@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PKG_VERSION="5.6.1"
+PKG_VERSION="5.6.2"
 SDK_VERSION="6.1"
 
 #############
@@ -9,7 +9,7 @@ PKG_NAME="cryptopp"
 LIB_NAME="lib${PKG_NAME}.a"
 ARCHIVE_NAME=${PKG_NAME}`echo ${PKG_VERSION} | sed 's/\.//g'`.zip
 URL_BASE="http://www.cryptopp.com"
-DOWNLOAD_URL=${URL_BASE}/${ARCHIVE_NAME}
+DOWNLOAD_URL="http://219.239.26.20/download/45947977/67741017/5/zip/69/186/1369620317509_698/cryptopp562.zip"
 
 WORK_PATH=`cd $(dirname $0) && cd .. && pwd`
 #echo ${WORK_PATH}
@@ -59,7 +59,7 @@ do
 
 	echo "Building ${PKG_NAME} for ${PLATFORM} ${SDK_VERSION} ${ARCH} ..."
 	unzip -o ${ARCHIVE_NAME} > /dev/null
-	patch -p1 < ${WORK_PATH}/scripts/${PKG_NAME}`echo ${PKG_VERSION} | sed 's/\.//g'`.diff
+	#patch -p1 < ${WORK_PATH}/scripts/${PKG_NAME}`echo ${PKG_VERSION} | sed 's/\.//g'`.diff
 	
 	mkdir -p ${BUILD_PATH}
 	mv *.cpp ${BUILD_PATH}
