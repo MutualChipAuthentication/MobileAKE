@@ -74,5 +74,5 @@ do
 done
 
 echo "Creating universal  library..."
-lipo -create ${WORK_PATH}/objs/iPhoneSimulator${SDK_VERSION}-i386.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv6.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv7.sdk/${LIB_NAME} -output ${WORK_PATH}/lib/${LIB_NAME}
+lipo -create ${WORK_PATH}/objs/iPhoneSimulator${SDK_VERSION}-i386.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv6.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv7.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv7s.sdk/${LIB_NAME} -output ${WORK_PATH}/lib/${LIB_NAME}
 echo "Build ${LIB_NAME} done."
