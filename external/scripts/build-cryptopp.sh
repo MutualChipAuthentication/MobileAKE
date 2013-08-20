@@ -14,7 +14,7 @@ DOWNLOAD_URL=${URL_BASE}/${ARCHIVE_NAME}
 WORK_PATH=`cd $(dirname $0) && cd .. && pwd`
 #echo ${WORK_PATH}
 
-ARCHS="i386 armv6 armv7"
+ARCHS="i386 armv6 armv7 armv7s"
 
 mkdir -p ${WORK_PATH}/tmp
 mkdir -p ${WORK_PATH}/lib
