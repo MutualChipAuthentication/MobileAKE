@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PKG_VERSION="5.6.2"
-SDK_VERSION="6.1"
+SDK_VERSION="7.0"
 
 #############
 
@@ -11,10 +11,17 @@ ARCHIVE_NAME=${PKG_NAME}`echo ${PKG_VERSION} | sed 's/\.//g'`.zip
 DOWNLOAD_URL="http://www.cryptopp.com/cryptopp562.zip"
 
 WORK_PATH=`cd $(dirname $0) && cd .. && pwd`
-#echo ${WORK_PATH}
 
 ARCHS="i386 armv6 armv7 armv7s"
 
+mkdir -p ${WORK_PATH}/tmp
+mkdir -p ${WORK_PATH}/lib
+mkdir -p ${WORK_PATH}/include/${PKG_NAME}
+mkdir -p ${WORK_PATH}/objs
+rm -r ${WORK_PATH}/tmp
+rm -r ${WORK_PATH}/lib
+rm -r ${WORK_PATH}/include
+rm -r ${WORK_PATH}/objs
 mkdir -p ${WORK_PATH}/tmp
 mkdir -p ${WORK_PATH}/lib
 mkdir -p ${WORK_PATH}/include/${PKG_NAME}
@@ -42,23 +49,27 @@ do
 		PLATFORM="iPhoneOS"
 	fi
 	
+	export TOOLS_ROOT="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain"
+	
 	export DEV_ROOT="/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer"
 	export SDK_ROOT="${DEV_ROOT}/SDKs/${PLATFORM}${SDK_VERSION}.sdk"
+	
     BUILD_PATH="${WORK_PATH}/objs/${PLATFORM}${SDK_VERSION}-${ARCH}.sdk"
 
-	export CC="${DEV_ROOT}/usr/bin/gcc -arch ${ARCH}"
-	export LD=${DEV_ROOT}/usr/bin/ld
-	export CXX=/usr/bin/clang
-	export AR=${DEV_ROOT}/usr/bin/ar
-	export AS=${DEV_ROOT}/usr/bin/as
-	export NM=${DEV_ROOT}/usr/bin/nm
-	export RANLIB=$DEV_ROOT/usr/bin/ranlib
+	export CC="${TOOLS_ROOT}/usr/bin/gcc -arch ${ARCH}"
+	
+	export LD=${TOOLS_ROOT}/usr/bin/ld
+	export CXX=${TOOLS_ROOT}/usr/bin/clang
+	export AR=${TOOLS_ROOT}/usr/bin/ar
+	export AS=${TOOLS_ROOT}/usr/bin/as
+	export NM=${TOOLS_ROOT}/usr/bin/nm
+	export RANLIB=${TOOLS_ROOT}/usr/bin/ranlib
+	
 	export LDFLAGS="-arch ${ARCH} -isysroot ${SDK_ROOT}"
 	export CXXFLAGS="-x c++ -arch ${ARCH} -isysroot ${SDK_ROOT} -I${WORK_PATH}/include/${PKG_NAME} -I${BUILD_PATH}"
 
 	echo "Building ${PKG_NAME} for ${PLATFORM} ${SDK_VERSION} ${ARCH} ..."
 	unzip -o ${ARCHIVE_NAME} > /dev/null
-	#patch -p1 < ${WORK_PATH}/scripts/${PKG_NAME}`echo ${PKG_VERSION} | sed 's/\.//g'`.diff
 	
 	mkdir -p ${BUILD_PATH}
 	mv *.cpp ${BUILD_PATH}

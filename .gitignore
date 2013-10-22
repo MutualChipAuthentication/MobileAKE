@@ -11,3 +11,9 @@ xcschememanagement.plist
 ._.*
 xcuserdata/
 DerivedData/
+
+# Ignore tmp files
+external/include
+external/lib
+external/objs
+external/tmp

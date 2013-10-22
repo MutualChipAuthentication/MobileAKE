@@ -6,7 +6,7 @@ See Crypto++ project page [http://www.cryptopp.com/](http://www.cryptopp.com/) f
 ### Build the static universal library
 
 1. open the Terminal and enter external/scripts directory.
-2. then, type ./build-cryptopp.sh
+2. then, type ./build-cryptopp-562.sh
 3. if succeeded, external/include/cryptopp/*.h and external/lib/libcryptopp.a is there. 
 
 check libcryptopp.a using file commad like this
@@ -48,14 +48,7 @@ Addition
 
 ### Require
  
-1. Xcode Command Line Tools
-2. iOS 6.1 SDK
-
-If you want to compile other sdk, modify "CryptoPP-for-iOS/external/scripts/build-cryptopp.sh" the following files
-  
-```sh
-SDK_VERSION="6.1"
-```
+Xcode Command Line Tools
 
 ### Compiled static library
 
