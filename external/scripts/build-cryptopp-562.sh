@@ -8,8 +8,7 @@ SDK_VERSION="6.1"
 PKG_NAME="cryptopp"
 LIB_NAME="lib${PKG_NAME}.a"
 ARCHIVE_NAME=${PKG_NAME}`echo ${PKG_VERSION} | sed 's/\.//g'`.zip
-URL_BASE="http://www.cryptopp.com"
-DOWNLOAD_URL="http://219.239.26.20/download/45947977/67741017/5/zip/69/186/1369620317509_698/cryptopp562.zip"
+DOWNLOAD_URL="http://www.cryptopp.com/cryptopp562.zip"
 
 WORK_PATH=`cd $(dirname $0) && cd .. && pwd`
 #echo ${WORK_PATH}
@@ -73,6 +72,6 @@ do
 	popd > /dev/null
 done
 
-echo "Creating universal  library..."
+echo "Creating universal library..."
 lipo -create ${WORK_PATH}/objs/iPhoneSimulator${SDK_VERSION}-i386.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv6.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv7.sdk/${LIB_NAME} ${WORK_PATH}/objs/iPhoneOS${SDK_VERSION}-armv7s.sdk/${LIB_NAME} -output ${WORK_PATH}/lib/${LIB_NAME}
 echo "Build ${LIB_NAME} done."
