@@ -60,7 +60,7 @@ void LoadBase64PublicKey(const string& filename, PublicKey& key);
 void LoadBase64(const string& filename, BufferedTransformation& bt);
 void Load(const string& filename, BufferedTransformation& bt);
 
-int main(int argc, char** argv)
+int generateKeys()
 {
 	std::ios_base::sync_with_stdio(false);
     

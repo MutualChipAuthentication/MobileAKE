@@ -20,9 +20,11 @@
 		5012B456181FF6F2008D74D4 /* QRViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5012B454181FF6F2008D74D4 /* QRViewController.mm */; };
 		5012B457181FF6F2008D74D4 /* QRViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5012B455181FF6F2008D74D4 /* QRViewController.xib */; };
 		5012B459181FF8F9008D74D4 /* Security-image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5012B458181FF8F9008D74D4 /* Security-image.jpg */; };
-		504FAE801838209A006E1953 /* Sigma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504FAE7E1838209A006E1953 /* Sigma.cpp */; };
-		504FAE831838E343006E1953 /* cryptocpp-key-gen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504FAE821838E343006E1953 /* cryptocpp-key-gen.cpp */; };
 		50A8644E181C7E0E0012CE52 /* libcryptopp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A8644D181C7E0E0012CE52 /* libcryptopp.a */; };
+		50FBB71C185394AD00BF2D25 /* cryptocpp-key-gen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */; };
+		50FBB71D185394AD00BF2D25 /* Sigma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB71A185394AD00BF2D25 /* Sigma.cpp */; };
+		50FBB720185394C800BF2D25 /* Hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB71E185394C800BF2D25 /* Hash.cpp */; };
+		50FBB7231853A6F100BF2D25 /* KeyGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB7211853A6F100BF2D25 /* KeyGenerator.cpp */; };
 		83F72F5E14A407170061CCFF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F5D14A407170061CCFF /* UIKit.framework */; };
 		83F72F6014A407170061CCFF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F5F14A407170061CCFF /* Foundation.framework */; };
 		83F72F6214A407170061CCFF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F6114A407170061CCFF /* CoreGraphics.framework */; };
@@ -79,10 +81,6 @@
 		5012B454181FF6F2008D74D4 /* QRViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QRViewController.mm; sourceTree = "<group>"; };
 		5012B455181FF6F2008D74D4 /* QRViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRViewController.xib; sourceTree = "<group>"; };
 		5012B458181FF8F9008D74D4 /* Security-image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Security-image.jpg"; sourceTree = "<group>"; };
-		504FAE7E1838209A006E1953 /* Sigma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sigma.cpp; sourceTree = "<group>"; };
-		504FAE7F1838209A006E1953 /* Sigma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sigma.h; sourceTree = "<group>"; };
-		504FAE821838E343006E1953 /* cryptocpp-key-gen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cryptocpp-key-gen.cpp"; sourceTree = "<group>"; };
-		504FAE841838E5DB006E1953 /* cryptocpp-key-gen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cryptocpp-key-gen.h"; sourceTree = "<group>"; };
 		50A863C6181C7DEC0012CE52 /* 3way.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 3way.h; sourceTree = "<group>"; };
 		50A863C7181C7DEC0012CE52 /* adler32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adler32.h; sourceTree = "<group>"; };
 		50A863C8181C7DEC0012CE52 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -219,6 +217,14 @@
 		50A8644B181C7DED0012CE52 /* zinflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zinflate.h; sourceTree = "<group>"; };
 		50A8644C181C7DED0012CE52 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		50A8644D181C7E0E0012CE52 /* libcryptopp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcryptopp.a; sourceTree = "<group>"; };
+		50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cryptocpp-key-gen.cpp"; sourceTree = "<group>"; };
+		50FBB719185394AD00BF2D25 /* cryptocpp-key-gen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cryptocpp-key-gen.h"; sourceTree = "<group>"; };
+		50FBB71A185394AD00BF2D25 /* Sigma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sigma.cpp; sourceTree = "<group>"; };
+		50FBB71B185394AD00BF2D25 /* Sigma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sigma.h; sourceTree = "<group>"; };
+		50FBB71E185394C800BF2D25 /* Hash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hash.cpp; sourceTree = "<group>"; };
+		50FBB71F185394C800BF2D25 /* Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hash.h; sourceTree = "<group>"; };
+		50FBB7211853A6F100BF2D25 /* KeyGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyGenerator.cpp; sourceTree = "<group>"; };
+		50FBB7221853A6F100BF2D25 /* KeyGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyGenerator.h; sourceTree = "<group>"; };
 		83F72F5914A407170061CCFF /* Cryptopp-for-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cryptopp-for-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83F72F5D14A407170061CCFF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83F72F5F14A407170061CCFF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -271,6 +277,21 @@
 				5012B43F181FF62E008D74D4 /* ZXingTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		50FBB717185394AD00BF2D25 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */,
+				50FBB719185394AD00BF2D25 /* cryptocpp-key-gen.h */,
+				50FBB71A185394AD00BF2D25 /* Sigma.cpp */,
+				50FBB71B185394AD00BF2D25 /* Sigma.h */,
+				50FBB71F185394C800BF2D25 /* Hash.h */,
+				50FBB71E185394C800BF2D25 /* Hash.cpp */,
+				50FBB7221853A6F100BF2D25 /* KeyGenerator.h */,
+				50FBB7211853A6F100BF2D25 /* KeyGenerator.cpp */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		83F72F4E14A407170061CCFF = {
@@ -513,16 +534,13 @@
 		83F73A4414A468F10061CCFF /* CryptoppWrapper */ = {
 			isa = PBXGroup;
 			children = (
+				50FBB717185394AD00BF2D25 /* Core */,
 				5012B432181FEE9F008D74D4 /* SigmaKeyAgreement.h */,
 				5012B431181FEE9F008D74D4 /* SigmaKeyAgreement.mm */,
 				83F73A4514A468F10061CCFF /* CryptoppHash.h */,
 				83F73A4614A468F10061CCFF /* CryptoppHash.mm */,
 				5012B434181FF447008D74D4 /* SigmaKeyValidation.h */,
 				5012B435181FF447008D74D4 /* SigmaKeyValidation.mm */,
-				504FAE7F1838209A006E1953 /* Sigma.h */,
-				504FAE7E1838209A006E1953 /* Sigma.cpp */,
-				504FAE821838E343006E1953 /* cryptocpp-key-gen.cpp */,
-				504FAE841838E5DB006E1953 /* cryptocpp-key-gen.h */,
 			);
 			name = CryptoppWrapper;
 			path = "Cryptopp-for-iOS/CryptoppWrapper";
@@ -621,14 +639,16 @@
 			files = (
 				83F72F6A14A407170061CCFF /* main.mm in Sources */,
 				5012B436181FF447008D74D4 /* SigmaKeyValidation.mm in Sources */,
+				50FBB7231853A6F100BF2D25 /* KeyGenerator.cpp in Sources */,
 				83F72F6E14A407170061CCFF /* CryptoppDemoAppDelegate.mm in Sources */,
 				83F72F7114A407170061CCFF /* CryptoppDemoMainViewController.m in Sources */,
 				5012B433181FEE9F008D74D4 /* SigmaKeyAgreement.mm in Sources */,
+				50FBB71D185394AD00BF2D25 /* Sigma.cpp in Sources */,
+				50FBB720185394C800BF2D25 /* Hash.cpp in Sources */,
 				83F72F7414A407170061CCFF /* CryptoppDemoHashViewController.m in Sources */,
 				83F73A4714A468F10061CCFF /* CryptoppHash.mm in Sources */,
-				504FAE831838E343006E1953 /* cryptocpp-key-gen.cpp in Sources */,
 				5012B456181FF6F2008D74D4 /* QRViewController.mm in Sources */,
-				504FAE801838209A006E1953 /* Sigma.cpp in Sources */,
+				50FBB71C185394AD00BF2D25 /* cryptocpp-key-gen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -98,7 +98,7 @@ string Sigma::GenerateSignature(SecByteBlock publicKeyA, SecByteBlock publicKeyB
                  );
     return signature;
 }
-//********************************************************************************************************
+//************************************di********************************************************************
 bool Sigma::VerifySignature(string signature, SecByteBlock publicKeyA, SecByteBlock publicKeyB, SecByteBlock randomByte, DSA::PublicKey signPublicKey)
 {
     string message = GenerateMessage(publicKeyA, publicKeyB, randomByte);

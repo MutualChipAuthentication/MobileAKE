@@ -85,6 +85,7 @@ using CryptoPP::StringSink;
 		q = dh.GetGroupParameters().GetSubgroupOrder();
 		g = dh.GetGroupParameters().GetGenerator();
         
+        
 		// http://groups.google.com/group/sci.crypt/browse_thread/thread/7dc7eeb04a09f0ce
 		Integer v = ModularExponentiation(g, q, p);
 		if(v != Integer::One())

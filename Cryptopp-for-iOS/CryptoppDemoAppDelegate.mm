@@ -11,7 +11,7 @@
 #import "CryptoppDemoMainViewController.h"
 
 #import "CryptoppDemoHashViewController.h"
-#import "cryptocpp-key-gen.h"
+#include "Hash.h"
 
 @implementation CryptoppDemoAppDelegate
 
@@ -43,9 +43,14 @@
         self.splitViewController.viewControllers = [NSArray arrayWithObjects:mainNavigationController, hashNavigationController, nil];
         self.window.rootViewController = qrViewController;
     }
-    generateKeys();
-
     
+    NSString *string = @"siema2";
+    NSData *stringData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    byte * response = Hash::getSHA1(((const byte*)[stringData bytes]), [stringData length]);
+    NSLog(@"response %s", (char *)response);
+    NSLog(@"response %@", [NSString stringWithCString:(char *)response encoding:NSASCIIStringEncoding]);
+    NSData *data = [NSData dataWithBytes:response length:Hash::size];
+    NSLog(@"hash %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
     [self.window makeKeyAndVisible];
     return YES;
 }
