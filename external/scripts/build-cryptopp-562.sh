@@ -35,11 +35,11 @@ else
 	echo "Using ${ARCHIVE_NAME}"
 fi
 
-HASHCHECK_RESULT=`shasum -c ${WORK_PATH}/scripts/${ARCHIVE_NAME}.sha512`
-if [ "${HASHCHECK_RESULT}" != "${ARCHIVE_NAME}: OK" ]; then
-	echo "Downloaded file ${ARCHIVE_NAME} is broken. remove it manually and restart build script again"
-	exit 1
-fi
+# HASHCHECK_RESULT=`shasum -c ${WORK_PATH}/scripts/${ARCHIVE_NAME}.sha512`
+# if [ "${HASHCHECK_RESULT}" != "${ARCHIVE_NAME}: OK" ]; then
+# 	echo "Downloaded file ${ARCHIVE_NAME} is broken. remove it manually and restart build script again"
+# 	exit 1
+# fi
 
 for ARCH in ${ARCHS}
 do
