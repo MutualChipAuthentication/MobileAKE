@@ -46,7 +46,7 @@ public:
 	
 	string encryptCert(unsigned char*,int, byte*, int, byte*, int,byte*, int);
 	//std::pair<std::pair<unsigned char*, int>,std::pair<byte *, int> > decryptCert(string decryption, byte*, int,byte*, int);
-	std::pair<std::vector<unsigned char>, std::vector<byte>> decryptCert(string decryption, byte*, int,byte*, int);
+	std::pair<std::vector<unsigned char>, std::vector<byte> > decryptCert(string decryption, byte*, int,byte*, int);
 	void setKey(byte key[], int size);
 };
 

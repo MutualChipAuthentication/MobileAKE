@@ -26,6 +26,7 @@
 		50FBB720185394C800BF2D25 /* Hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB71E185394C800BF2D25 /* Hash.cpp */; };
 		50FBB7231853A6F100BF2D25 /* KeyGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB7211853A6F100BF2D25 /* KeyGenerator.cpp */; };
 		50FBB7251853E66E00BF2D25 /* AKETest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB7241853E66E00BF2D25 /* AKETest.cpp */; };
+		50FBB7291853F27A00BF2D25 /* EncDecClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB7271853F27A00BF2D25 /* EncDecClass.cpp */; };
 		83F72F5E14A407170061CCFF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F5D14A407170061CCFF /* UIKit.framework */; };
 		83F72F6014A407170061CCFF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F5F14A407170061CCFF /* Foundation.framework */; };
 		83F72F6214A407170061CCFF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F6114A407170061CCFF /* CoreGraphics.framework */; };
@@ -228,6 +229,8 @@
 		50FBB7221853A6F100BF2D25 /* KeyGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyGenerator.h; sourceTree = "<group>"; };
 		50FBB7241853E66E00BF2D25 /* AKETest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKETest.cpp; sourceTree = "<group>"; };
 		50FBB7261853E99D00BF2D25 /* AKETest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKETest.h; sourceTree = "<group>"; };
+		50FBB7271853F27A00BF2D25 /* EncDecClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EncDecClass.cpp; sourceTree = "<group>"; };
+		50FBB7281853F27A00BF2D25 /* EncDecClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncDecClass.h; sourceTree = "<group>"; };
 		83F72F5914A407170061CCFF /* Cryptopp-for-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cryptopp-for-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83F72F5D14A407170061CCFF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83F72F5F14A407170061CCFF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -285,6 +288,8 @@
 		50FBB717185394AD00BF2D25 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				50FBB7281853F27A00BF2D25 /* EncDecClass.h */,
+				50FBB7271853F27A00BF2D25 /* EncDecClass.cpp */,
 				50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */,
 				50FBB719185394AD00BF2D25 /* cryptocpp-key-gen.h */,
 				50FBB71A185394AD00BF2D25 /* Sigma.cpp */,
@@ -648,6 +653,7 @@
 				50FBB7231853A6F100BF2D25 /* KeyGenerator.cpp in Sources */,
 				83F72F6E14A407170061CCFF /* CryptoppDemoAppDelegate.mm in Sources */,
 				83F72F7114A407170061CCFF /* CryptoppDemoMainViewController.m in Sources */,
+				50FBB7291853F27A00BF2D25 /* EncDecClass.cpp in Sources */,
 				5012B433181FEE9F008D74D4 /* SigmaKeyAgreement.mm in Sources */,
 				50FBB71D185394AD00BF2D25 /* Sigma.cpp in Sources */,
 				50FBB720185394C800BF2D25 /* Hash.cpp in Sources */,

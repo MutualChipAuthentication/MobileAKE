@@ -75,7 +75,7 @@ string EncDecClass::encryptCert(unsigned char *cert,int cert_size, byte *r, int 
 	return cipher;
 }
 
-std::pair<std::vector<unsigned char>, std::vector<byte>> EncDecClass::decryptCert(string cert, byte * key, int key_size, byte * iv, int iv_size){
+std::pair<std::vector<unsigned char>, std::vector<byte> > EncDecClass::decryptCert(string cert, byte * key, int key_size, byte * iv, int iv_size){
 	string recovered;
 	const byte separator[] = {0xFF,0x00,0xFF,0x00,0xFF,0x00,0xFF,0x00,0xFF,0x00,0xFF,0x00,0xFF,0x00};
 	string str_cert, str_r, str_sep;
@@ -156,5 +156,5 @@ std::pair<std::vector<unsigned char>, std::vector<byte>> EncDecClass::decryptCer
 	   offset += 2;
 	}
 
-	return std::pair<std::vector<unsigned char>, std::vector<byte>>(hexChcert,hexChR);
+	return std::pair<std::vector<unsigned char>, std::vector<byte> >(hexChcert,hexChR);
 }
