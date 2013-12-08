@@ -11,7 +11,7 @@
 #import "CryptoppDemoMainViewController.h"
 
 #import "CryptoppDemoHashViewController.h"
-#include "Hash.h"
+#include "AKETest.h"
 
 @implementation CryptoppDemoAppDelegate
 
@@ -44,13 +44,8 @@
         self.window.rootViewController = qrViewController;
     }
     
-    NSString *string = @"siema2";
-    NSData *stringData = [string dataUsingEncoding:NSUTF8StringEncoding];
-    byte * response = Hash::getSHA1(((const byte*)[stringData bytes]), [stringData length]);
-    NSLog(@"response %s", (char *)response);
-    NSLog(@"response %@", [NSString stringWithCString:(char *)response encoding:NSASCIIStringEncoding]);
-    NSData *data = [NSData dataWithBytes:response length:Hash::size];
-    NSLog(@"hash %@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
+    AKETest::test();
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

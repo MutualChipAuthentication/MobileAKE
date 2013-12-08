@@ -28,6 +28,7 @@ using CryptoPP::DH;
 #include "dh2.h"
 using CryptoPP::DH2;
 using CryptoPP::RandomNumberGenerator;
+#include "Hash.h"
 
 using namespace std;
 //NAMESPACE_BEGIN(CryptoPP)
@@ -36,11 +37,13 @@ using namespace std;
 class KeyGenerator
 {
 public:
+    int keySize;
     KeyGenerator(DH &domain)
     : dh(domain) {
         p = dh.GetGroupParameters().GetModulus();
 		q = dh.GetGroupParameters().GetSubgroupOrder();
 		g = dh.GetGroupParameters().GetGenerator();
+        keySize = Hash::size;
     }
 
     
@@ -55,9 +58,9 @@ public:
 	void GenerateStaticKeyPair(RandomNumberGenerator &rng, byte *privateKey, byte *publicKey) const //x, g^x
     {dh.GenerateKeyPair(rng, privateKey, publicKey);}
     
-	unsigned int EphemeralPriveteKeyLength() const;
+	unsigned int EphemeralPrivateKeyLength() const { return keySize; }
 	void GenerateEphemeralPrivateKey(RandomNumberGenerator &rng, byte *privateKey) const; //cb^ha
-	unsigned int EphemeralPublicKeyLength() const;
+	unsigned int EphemeralPublicKeyLength() const { return keySize; }
 	void GenerateEphemeralPublicKey(RandomNumberGenerator &rng, byte *privateKey) const; //cb^ha
     void GenerateEphemeralKeyPair(RandomNumberGenerator &rng, byte *privateKey, byte *publicKey) const;
 

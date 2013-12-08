@@ -9,39 +9,41 @@
 #include "KeyGenerator.h"
 #include "Hash.h"
 
+
+#include "secblock.h"
+using CryptoPP::SecByteBlock;
+
 void KeyGenerator::GenerateEphemeralKeyPair(CryptoPP::RandomNumberGenerator &rng, byte *privateKey, byte *publicKey) const
 {
-    const int size = Hash::size;
-    Integer a = Integer(rng, size);
+    Integer a = Integer(rng, keySize);
+    cout << "random a " << a << endl;
     byte *aEncoded;
-    a.Encode(aEncoded, size);
-    privateKey = Hash::getSHA1(aEncoded, size);
-    CryptoPP::Integer exponent(privateKey, size);
+    a.Encode(aEncoded, keySize);
+    privateKey = Hash::getSHA1(aEncoded, keySize);
+    CryptoPP::Integer exponent(privateKey, keySize);
     CryptoPP::Integer cA = a_exp_b_mod_c(g, exponent, p);   //ca = g^H(a)
-    cA.Encode(publicKey, size);
+    cA.Encode(publicKey, keySize);
 }
 
 
 // K_i = H(K, i)
 byte * KeyGenerator::GenerateKeyFromHashedKey(byte *key, int random)
 {
-    const int size = Hash::size;
-    Integer k = CryptoPP::Integer(key, size);
+    Integer k = CryptoPP::Integer(key, keySize);
     k += CryptoPP::Integer(random);
     byte *encoded;
-    k.Encode(encoded, size);
-    return Hash::getSHA1(encoded, size);
+    k.Encode(encoded, keySize);
+    return Hash::getSHA1(encoded, keySize);
 }
 
 
 //cb^exp
 byte * KeyGenerator::EstablishSessionKey(byte *ephemeralPrivateKey, byte * ephemeralPublicKey)
 {
-    const int size = Hash::size;
-    CryptoPP::Integer cb = CryptoPP::Integer(ephemeralPrivateKey, size);
-    CryptoPP::Integer exp = CryptoPP::Integer(ephemeralPublicKey, size);
+    CryptoPP::Integer cb = CryptoPP::Integer(ephemeralPrivateKey, keySize);
+    CryptoPP::Integer exp = CryptoPP::Integer(ephemeralPublicKey, keySize);
     CryptoPP::Integer key = a_exp_b_mod_c(cb, exp, p);
     byte *sessionKey;
-    key.Encode(sessionKey, size);
+    key.Encode(sessionKey, keySize);
     return sessionKey;
 }
