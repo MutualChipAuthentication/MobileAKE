@@ -7,148 +7,188 @@
 //
 
 #import "SigmaKeyAgreement.h"
-#import "SigmaKeyValidation.h"
+#import "NSString+CStringLossless.h"
+#import "NSData+Base64.h"
+#include "Sigma.h"
 
-#include <iostream>
-using std::cout;
-using std::cerr;
-using std::endl;
 
-#include <string>
-using std::string;
-
-#include <stdexcept>
-using std::runtime_error;
 
 #include "osrng.h"
 using CryptoPP::AutoSeededRandomPool;
 
-#include "integer.h"
-using CryptoPP::Integer;
-
-#include "nbtheory.h"
-using CryptoPP::ModularExponentiation;
-
 #include "dh.h"
-using CryptoPP::DH;
 
-#include "dh2.h"
-using CryptoPP::DH2;
 
-#include "secblock.h"
-using CryptoPP::SecByteBlock;
-
-#include <filters.h>
-using CryptoPP::StringSink;
-@implementation SigmaKeyAgreement
-- (int)simulateProtocol
+@interface SigmaKeyAgreement ()
 {
-    try
-	{
-		// RFC 5114, 1024-bit MODP Group with 160-bit Prime Order Subgroup
-		// http://tools.ietf.org/html/rfc5114#section-2.1
-		Integer p("0xB10B8F96A080E01DDE92DE5EAE5D54EC52C99FBCFB06A3C6"
-                  "9A6A9DCA52D23B616073E28675A23D189838EF1E2EE652C0"
-                  "13ECB4AEA906112324975C3CD49B83BFACCBDD7D90C4BD70"
-                  "98488E9C219A73724EFFD6FAE5644738FAA31A4FF55BCCC0"
-                  "A151AF5F0DC8B4BD45BF37DF365C1A65E68CFDA76D4DA708"
-                  "DF1FB2BC2E4A4371");
-        
-		Integer g("0xA4D1CBD5C3FD34126765A442EFB99905F8104DD258AC507F"
-                  "D6406CFF14266D31266FEA1E5C41564B777E690F5504F213"
-                  "160217B4B01B886A5E91547F9E2749F4D7FBD7D3B9A92EE1"
-                  "909D0D2263F80A76A6A24C087A091F531DBF0A0169B6A28A"
-                  "D662A4D18E73AFA32D779D5918D08BC8858F4DCEF97C2A24"
-                  "855E6EEB22B3B2E5");
-        
-		Integer q("0xF518AA8781A8DF278ABA4E7D64B7CB9D49462353");
-        
-		// Schnorr Group primes are of the form p = rq + 1, p and q prime. They
-		// provide a subgroup order. In the case of 1024-bit MODP Group, the
-		// security level is 80 bits (based on the 160-bit prime order subgroup).
-        
-		// For a compare/contrast of using the maximum security level, see
-		// dh-unified.zip. Also see http://www.cryptopp.com/wiki/Diffie-Hellman
-		// and http://www.cryptopp.com/wiki/Security_level .
-        
-		DH dh;
-		AutoSeededRandomPool rnd;
-        
-		dh.AccessGroupParameters().Initialize(p, q, g);
-        
-		if(!dh.GetGroupParameters().ValidateGroup(rnd, 3))
-			throw runtime_error("Failed to validate prime and generator");
-        
-		size_t count = 0;
-        
-		p = dh.GetGroupParameters().GetModulus();
-		q = dh.GetGroupParameters().GetSubgroupOrder();
-		g = dh.GetGroupParameters().GetGenerator();
-        
-        
-		// http://groups.google.com/group/sci.crypt/browse_thread/thread/7dc7eeb04a09f0ce
-		Integer v = ModularExponentiation(g, q, p);
-		if(v != Integer::One())
-			throw runtime_error("Failed to verify order of the subgroup");
-        
-		//////////////////////////////////////////////////////////////
-        
-		DH2 dhA(dh), dhB(dh);
-        
-		SecByteBlock sprivA(dhA.StaticPrivateKeyLength()), spubA(dhA.StaticPublicKeyLength());
-		SecByteBlock eprivA(dhA.EphemeralPrivateKeyLength()), epubA(dhA.EphemeralPublicKeyLength());
-        
-		SecByteBlock sprivB(dhB.StaticPrivateKeyLength()), spubB(dhB.StaticPublicKeyLength());
-		SecByteBlock eprivB(dhB.EphemeralPrivateKeyLength()), epubB(dhB.EphemeralPublicKeyLength());
-        
-		dhA.GenerateStaticKeyPair(rnd, sprivA, spubA);
-		dhA.GenerateEphemeralKeyPair(rnd, eprivA, epubA);
-        
-		dhB.GenerateStaticKeyPair(rnd, sprivB, spubB);
-		dhB.GenerateEphemeralKeyPair(rnd, eprivB, epubB);
-        
-		//////////////////////////////////////////////////////////////
-        
-		if(dhA.AgreedValueLength() != dhB.AgreedValueLength())
-			throw runtime_error("Shared secret size mismatch");
-        
-		SecByteBlock sharedA(dhA.AgreedValueLength()), sharedB(dhB.AgreedValueLength());
-        
-		if(!dhA.Agree(sharedA, sprivA, eprivA, spubB, epubB))
-			throw runtime_error("Failed to reach shared secret (A)");
-        
-		if(!dhB.Agree(sharedB, sprivB, eprivB, spubA, epubA))
-			throw runtime_error("Failed to reach shared secret (B)");
-        
-		count = std::min(dhA.AgreedValueLength(), dhB.AgreedValueLength());
-		if(!count || 0 != memcmp(sharedA.BytePtr(), sharedB.BytePtr(), count))
-			throw runtime_error("Failed to reach shared secret");
-        
-		//////////////////////////////////////////////////////////////
-        SigmaKeyValidation *keyValidation = [[SigmaKeyValidation alloc] init];
-        if (![keyValidation simulateSignatures:dhA partyB:dhB])
-            cout << "Man in the middle attack - wrong certificates" << endl;
-        
-		Integer a, b;
-        
-		a.Decode(sharedA.BytePtr(), sharedA.SizeInBytes());
-		cout << "Shared secret (A): " << std::hex << a << endl;
-        
-		b.Decode(sharedB.BytePtr(), sharedB.SizeInBytes());
-		cout << "Shared secret (B): " << std::hex << b << endl;
-        return 0;
-	}
+    SecByteBlock publicKey;
+    SecByteBlock privateKey;
+    SecByteBlock publicKeyB;
     
-	catch(const CryptoPP::Exception& e)
-	{
-		cerr << e.what() << endl;
-		return -2;
-	}
-    
-	catch(const std::exception& e)
-	{
-		cerr << e.what() << endl;
-		return -1;
-	}
+    DSA::PublicKey signPubKey;
+    DSA::PrivateKey signPrivKey;
+    Sigma sigma;
 }
+@end
+
+@implementation SigmaKeyAgreement
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        DH dh;
+        AutoSeededRandomPool rnd;
+        sigma = Sigma();
+        
+        dh.AccessGroupParameters().Initialize(sigma.getP(), sigma.getQ(), sigma.getG());
+        SecByteBlock privKey(dh.PrivateKeyLength());
+        SecByteBlock pubKey(dh.PublicKeyLength());
+        dh.GenerateKeyPair(rnd, privKey, pubKey);
+        publicKey = pubKey;
+        privateKey = privKey;
+        sigma.GenerateDSASignatureKeyPair(rnd, signPrivKey, signPubKey);
+    }
+    return self;
+}
+- (NSValue *)generateInitialMessage
+{
+    InitialMessage message = sigma.GenerateInitialMessage(publicKey);
+    string stringMessage = Sigma::InitialMessageToString(message);
+    return [NSValue valueWithPointer:new string(stringMessage)];
+//    string *pointer = new string(stringMessage);
+//    void *sVoid = static_cast<void*>(pointer);
+//    cout << "string message " << stringMessage << endl;
+//    return [NSData dataWithBytes:sVoid length:sizeof(*sVoid)];
+}
+- (NSValue *)generateResponse:(NSValue *)message
+{
+    string stringMessage = *((string *)[message pointerValue]);
+    cout << "string message " << stringMessage << endl;
+    InitialMessage initialMessage = Sigma::stringToInitialMesssage(stringMessage);
+    Response response = sigma.GenerateResponse(initialMessage, publicKey, signPrivKey);
+    
+    BOOL verifyResponse = sigma.VerifyResponse(initialMessage, response, signPubKey);
+    if (!verifyResponse)
+        cout << "response failed" << endl;
+    
+    publicKeyB = response.first;
+    string responseString = Sigma::ResponseToString(response);
+    void *sVoid = static_cast<void*>(&responseString);
+    cout << "response string " << responseString << endl;
+    return [NSValue valueWithPointer:new string(responseString)];
+}
+
+- (NSValue *)dsaPubKey
+{
+    string dsaPubKey = sigma.DSAPubKeyToString(signPubKey);
+//    cout << dsaPubKey << endl;
+    void *sVoid = static_cast<void*>(&dsaPubKey);
+    
+    NSData *value = [NSData dataWithBytes:sVoid length:dsaPubKey.length()];
+    return [NSValue valueWithPointer:new string(dsaPubKey)];
+    
+//    NSString *nsstring2 = [NSString stringFromCStringLossless:value];
+//    value = [nsstring2 cstringFromLosslessString];
+//    string s =  string(*(static_cast<std::string*>([value pointerValue])));
+//    if (dsaPubKey.compare(s))
+//        cout << "dsa failed " << endl;
+//    
+//    void *sVoid = static_cast<void*>(&dsaPubKey);
+//    
+//    
+//    NSData *data = [NSData dataWithBytes:sVoid length:dsaPubKey.length()];
+//    NSString *nsstring = [data base64Encoding];
+//    
+//    data = [NSData dataFromBase64String:nsstring];
+//    string &testString = *((string *)[data bytes]);
+//    
+//    if (!testString.compare(dsaPubKey))
+//        cout << "dsa ok " << endl;
+//    else
+//        cout << "dsa failed " << endl;
+//    cout << "dsa pub key " << dsaPubKey << endl;
+//    return nsstring;
+}
+
+- (BOOL)verifyResponse:(NSValue *)responseEncoded message:(NSValue *)messageEncoded signPubKey:(NSValue *)dsaPubKeyEncoded
+{
+    string stringMessage = *((string *)[messageEncoded pointerValue]);
+    string dsaPubKeyEncodedString = *((string *)[dsaPubKeyEncoded pointerValue]);
+    string responseString = *((string *)[responseEncoded pointerValue]);
+//    cout << "message " << stringMessage << endl;
+//    cout << "response string " << responseString << endl;
+    InitialMessage initialMessage = Sigma::stringToInitialMesssage(stringMessage);
+    Response responseMessage = Sigma::stringToResponse(responseString);
+    publicKeyB = responseMessage.first;
+    
+    DSA::PublicKey signPubKeyB = Sigma::stringToDSAPubKey(dsaPubKeyEncodedString);
+    return sigma.VerifyResponse(initialMessage, responseMessage, signPubKeyB);
+}
+
+- (NSValue *)generateSessionSignature:(NSValue *)messageEncoded andResponse:(NSValue *)responseEncoded
+{
+    string responseString =  *((string *)[responseEncoded pointerValue]);
+    string stringMessage = *((string *)[messageEncoded pointerValue]);
+  
+    InitialMessage initialMessage = Sigma::stringToInitialMesssage(stringMessage);
+    Response response = Sigma::stringToResponse(responseString);
+    
+    SessionSignature sessionSignature = sigma.GenerateSessionSignature(initialMessage, response.first, signPrivKey);
+    
+    Integer sessionKeyA = sigma.GenerateSessionKey(publicKeyB, privateKey);
+    cout << "established session key " << sessionKeyA << endl;
+    void *sVoid = static_cast<void*>(&sessionSignature);
+    return [NSValue valueWithPointer:new string(sessionSignature)];
+}
+
+
+- (BOOL)verifySessionSignature:(NSValue *)sessionSignature message:(NSValue *)messageEncoded andResponse:(NSValue *)responseEncoded signPubKey:(NSValue *)dsaPubKeyEncoded
+
+{
+    string stringMessage = *((string *)[messageEncoded pointerValue]);
+    string dsaPubKeyEncodedString = *((string *)[dsaPubKeyEncoded pointerValue]);
+    string responseString =  *((string *)[responseEncoded pointerValue]);
+    
+    InitialMessage initialMessage = Sigma::stringToInitialMesssage(stringMessage);
+    Response response = Sigma::stringToResponse(responseString);
+    DSA::PublicKey signPubKeyB = Sigma::stringToDSAPubKey(dsaPubKeyEncodedString);
+    
+    Integer sessionKeyA = sigma.GenerateSessionKey(publicKeyB, privateKey);
+    cout << "established session key " << sessionKeyA << endl;
+    
+    
+    SessionSignature signature = *((string *)[sessionSignature pointerValue]);
+    return sigma.VerifySessionSignature(signature, initialMessage, response.first, signPubKeyB);
+}
+
++ (void)simulateProtocol
+{
+    NSLog(@"test ");
+    SigmaKeyAgreement *partyA = [[SigmaKeyAgreement alloc] init];
+    SigmaKeyAgreement *partyB = [[SigmaKeyAgreement alloc] init];
+    
+    
+    NSValue *initialMessage = [partyA generateInitialMessage];
+    NSValue *response = [partyB generateResponse:initialMessage];
+    NSValue *signKey = [partyB dsaPubKey];
+    BOOL verifyResponse  = [partyA verifyResponse:response message:initialMessage signPubKey:signKey];
+    if (!verifyResponse)
+    {
+        NSLog(@"party B response incorrect, aborting!");
+        return;
+    }
+    NSValue *sessionSignature = [partyA generateSessionSignature:initialMessage andResponse:response];
+    signKey = [partyA dsaPubKey];
+    verifyResponse = [partyB verifySessionSignature:sessionSignature message:initialMessage andResponse:response signPubKey:signKey];
+    if (!verifyResponse)
+    {
+        NSLog(@"party A response incorrect, aborting!");
+        return;
+    }
+    NSLog(@"all went fine");
+}
+
+
+
 @end

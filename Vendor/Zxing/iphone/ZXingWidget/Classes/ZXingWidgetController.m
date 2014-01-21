@@ -348,14 +348,28 @@ static bool isIPad() {
   return !!is_ipad;
 }
 #endif
+
+- (AVCaptureDeviceInput *)getInputForFrontCamera
+{
+    AVCaptureDevicePosition desiredPosition = AVCaptureDevicePositionFront;
+    
+    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+        if ([d position] == desiredPosition) {
+            return  [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
+        }
+    }
+    return nil;
+}
     
 - (void)initCapture {
 #if HAS_AVFF
-  AVCaptureDevice* inputDevice =
-      [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-  AVCaptureDeviceInput *captureInput =
-      [AVCaptureDeviceInput deviceInputWithDevice:inputDevice error:nil];
-  AVCaptureVideoDataOutput *captureOutput = [[AVCaptureVideoDataOutput alloc] init]; 
+//  AVCaptureDevice* inputDevice =
+//      [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+//  AVCaptureDeviceInput *captureInput =
+//      [AVCaptureDeviceInput deviceInputWithDevice:inputDevice error:nil];
+    AVCaptureDeviceInput *captureInput = [self getInputForFrontCamera];
+
+  AVCaptureVideoDataOutput *captureOutput = [[AVCaptureVideoDataOutput alloc] init];
   captureOutput.alwaysDiscardsLateVideoFrames = YES; 
   [captureOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
   NSString* key = (NSString*)kCVPixelBufferPixelFormatTypeKey; 

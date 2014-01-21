@@ -78,6 +78,6 @@ void EncDecTest::Test(){
 	EncDecClass ed;
 	ed.setKey(key, 16);
 	string cipher = ed.encryptCert(cert,sizeof(cert),ra,sizeof(ra),key,sizeof(key),iv,sizeof(iv));
-	std::pair<std::vector<unsigned char>, std::vector<byte>> test;
+	std::pair<std::vector<unsigned char>, std::vector<byte> > test;
 	test = ed.decryptCert(cipher,key,sizeof(key),iv,sizeof(iv));
 }

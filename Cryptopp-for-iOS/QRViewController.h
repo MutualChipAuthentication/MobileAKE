@@ -11,5 +11,10 @@
 #import <MultiFormatReader.h>
 
 @interface QRViewController : UIViewController <ZXingDelegate>
-
+@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+- (IBAction)scanMessage:(id)sender;
+- (IBAction)scanSignature:(id)sender;
+- (IBAction)scanPublicKey:(id)sender;
+- (IBAction)verifySignature:(id)sender;
 @end

@@ -7,11 +7,18 @@
 
 #import "CryptoppDemoAppDelegate.h"
 #import "QRViewController.h"
+#import "SignMessageViewController.h"
+#import "SigmaViewController.h"
 
-#import "CryptoppDemoMainViewController.h"
+//#include "AKETest.h"
+#include "SchnorrSignature.h"
+//#import "CryptoppHash.h"
+//#import "Hash.h"
 
-#import "CryptoppDemoHashViewController.h"
-#include "AKETest.h"
+
+#include "Sigma.h"
+
+//#import "SchnorrSigningModel.h"
 
 @implementation CryptoppDemoAppDelegate
 
@@ -24,28 +31,38 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        CryptoppDemoMainViewController *mainViewController = [[CryptoppDemoMainViewController alloc] initWithNibName:@"CryptoppDemoMainViewController_iPhone" bundle:nil];
+        SigmaViewController *sigmaViewController = [[SigmaViewController alloc] initWithNibName:@"SigmaViewController" bundle:nil];
+        
+        
         QRViewController *qrViewController = [[QRViewController alloc] initWithNibName:@"QRViewController" bundle:nil];
         self.navigationController = [[UINavigationController alloc] initWithRootViewController:qrViewController];
         
-        self.window.rootViewController = self.navigationController;
-    } else {
-        CryptoppDemoMainViewController *mainViewController = [[CryptoppDemoMainViewController alloc] initWithNibName:@"CryptoppDemoMainViewController_iPad" bundle:nil];
-        UINavigationController *mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
-
-        QRViewController *qrViewController = [[QRViewController alloc] initWithNibName:@"QRViewController" bundle:nil];
+        SignMessageViewController *signMessageViewController = [[SignMessageViewController alloc] initWithNibName:@"SignMessageViewController" bundle:nil];
         
-        CryptoppDemoHashViewController *hashViewController = [[CryptoppDemoHashViewController alloc] initWithNibName:@"CryptoppDemoHashViewController_iPad" bundle:nil];
-        UINavigationController *hashNavigationController = [[UINavigationController alloc] initWithRootViewController:hashViewController];
-    	
-        self.splitViewController = [[UISplitViewController alloc] init];
-        self.splitViewController.delegate = hashViewController;
-        self.splitViewController.viewControllers = [NSArray arrayWithObjects:mainNavigationController, hashNavigationController, nil];
-        self.window.rootViewController = qrViewController;
+        UITabBarController *tabBarController = [[UITabBarController alloc] init];
+        [tabBarController setViewControllers:@[sigmaViewController, signMessageViewController, qrViewController]];
+        self.window.rootViewController = tabBarController;
     }
+    Sigma::test();
+    [SigmaKeyAgreement simulateProtocol];
     
-    AKETest::test();
+//    SchnorrSigningModel *schnorr = [[SchnorrSigningModel alloc] init];
+//    [schnorr test];
     
+//    AKETest::test();
+//    CryptoppSHA *sha = [[CryptoppSHA alloc] initWithLength:CryptppSHALength1];
+//    NSString *message = @"hello";
+//    NSData *messageData = [message dataUsingEncoding:NSASCIIStringEncoding];
+//    NSData *messageOutput = [sha getHashValue:messageData];
+//    NSLog(@"sha(%@) = %@", message, messageOutput);
+//    byte *result = Hash::getSHA1((const byte *)messageData.bytes, messageData.length);
+//    messageOutput = [NSData dataWithBytes:result length:20];
+//    NSLog(@"sha(%@) = %@", message, messageOutput);
+//    result = Hash::getSHA1((const byte *)messageData.bytes, messageData.length);
+//    messageOutput = [NSData dataWithBytes:result length:20];
+//    NSLog(@"sha(%@) = %@", message, messageOutput);
+//    
+//    SchnorrSign::test();
     [self.window makeKeyAndVisible];
     return YES;
 }

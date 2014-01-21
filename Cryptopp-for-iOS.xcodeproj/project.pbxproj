@@ -20,7 +20,20 @@
 		5012B456181FF6F2008D74D4 /* QRViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5012B454181FF6F2008D74D4 /* QRViewController.mm */; };
 		5012B457181FF6F2008D74D4 /* QRViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5012B455181FF6F2008D74D4 /* QRViewController.xib */; };
 		5012B459181FF8F9008D74D4 /* Security-image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5012B458181FF8F9008D74D4 /* Security-image.jpg */; };
+		501EC9E4188E6E3100AD82A5 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 501EC9E3188E6E3100AD82A5 /* NSData+Base64.m */; };
+		501EC9E9188E742D00AD82A5 /* NSString+CStringLossless.mm in Sources */ = {isa = PBXBuildFile; fileRef = 501EC9E8188E742D00AD82A5 /* NSString+CStringLossless.mm */; };
+		506CB131185650C5006CB5CA /* EncDecTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 506CB12E185650C5006CB5CA /* EncDecTest.cpp */; };
+		506CB15418567588006CB5CA /* SchnorrSignature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 506CB15218567588006CB5CA /* SchnorrSignature.cpp */; };
 		50A8644E181C7E0E0012CE52 /* libcryptopp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A8644D181C7E0E0012CE52 /* libcryptopp.a */; };
+		50AC4704185698E900CC36B4 /* SchnorrSigningModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50AC4703185698E900CC36B4 /* SchnorrSigningModel.mm */; };
+		50AC47081857327200CC36B4 /* SignMessageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50AC47061857327200CC36B4 /* SignMessageViewController.mm */; };
+		50AC47091857327200CC36B4 /* SignMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50AC47071857327200CC36B4 /* SignMessageViewController.xib */; };
+		50AC470B1857336600CC36B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50AC470A1857336600CC36B4 /* Images.xcassets */; };
+		50AC473F1857379200CC36B4 /* Information-Security2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50AC473E1857379200CC36B4 /* Information-Security2.jpg */; };
+		50AC474E18573D9300CC36B4 /* libqrencoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AC474918573D6800CC36B4 /* libqrencoder.a */; };
+		50AC4758185742F300CC36B4 /* UIView+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AC4757185742F300CC36B4 /* UIView+Geometry.m */; };
+		50E0AA91187B6BC9005D5BF9 /* SigmaViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50E0AA8F187B6BC9005D5BF9 /* SigmaViewController.mm */; };
+		50E0AA92187B6BC9005D5BF9 /* SigmaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50E0AA90187B6BC9005D5BF9 /* SigmaViewController.xib */; };
 		50FBB71C185394AD00BF2D25 /* cryptocpp-key-gen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */; };
 		50FBB71D185394AD00BF2D25 /* Sigma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB71A185394AD00BF2D25 /* Sigma.cpp */; };
 		50FBB720185394C800BF2D25 /* Hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50FBB71E185394C800BF2D25 /* Hash.cpp */; };
@@ -64,6 +77,27 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = ZXingWidget;
 		};
+		50AC474818573D6800CC36B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50AC474318573D6800CC36B4 /* QRCodeEncoderObjectiveCAtGithub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9672D35713BD662F0002B0E2;
+			remoteInfo = qrencoder;
+		};
+		50AC474A18573D6800CC36B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50AC474318573D6800CC36B4 /* QRCodeEncoderObjectiveCAtGithub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9621844115431DBA00447877;
+			remoteInfo = QRCodeEncoderDemo;
+		};
+		50AC474C18573D8500CC36B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50AC474318573D6800CC36B4 /* QRCodeEncoderObjectiveCAtGithub.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9672D35613BD662F0002B0E2;
+			remoteInfo = qrencoder;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -79,10 +113,18 @@
 		5012B44D181FF6BA008D74D4 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		5012B44F181FF6C4008D74D4 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		5012B450181FF6C4008D74D4 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
-		5012B453181FF6F2008D74D4 /* QRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRViewController.h; sourceTree = "<group>"; };
-		5012B454181FF6F2008D74D4 /* QRViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QRViewController.mm; sourceTree = "<group>"; };
-		5012B455181FF6F2008D74D4 /* QRViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRViewController.xib; sourceTree = "<group>"; };
+		5012B453181FF6F2008D74D4 /* QRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QRViewController.h; path = "Cryptopp-for-iOS/QRViewController.h"; sourceTree = "<group>"; };
+		5012B454181FF6F2008D74D4 /* QRViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QRViewController.mm; path = "Cryptopp-for-iOS/QRViewController.mm"; sourceTree = "<group>"; };
+		5012B455181FF6F2008D74D4 /* QRViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QRViewController.xib; path = "Cryptopp-for-iOS/QRViewController.xib"; sourceTree = "<group>"; };
 		5012B458181FF8F9008D74D4 /* Security-image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Security-image.jpg"; sourceTree = "<group>"; };
+		501EC9E2188E6E3100AD82A5 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		501EC9E3188E6E3100AD82A5 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		501EC9E7188E742D00AD82A5 /* NSString+CStringLossless.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CStringLossless.h"; sourceTree = "<group>"; };
+		501EC9E8188E742D00AD82A5 /* NSString+CStringLossless.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+CStringLossless.mm"; sourceTree = "<group>"; };
+		506CB12E185650C5006CB5CA /* EncDecTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EncDecTest.cpp; sourceTree = "<group>"; };
+		506CB12F185650C5006CB5CA /* EncDecTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncDecTest.h; sourceTree = "<group>"; };
+		506CB15218567588006CB5CA /* SchnorrSignature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SchnorrSignature.cpp; sourceTree = "<group>"; };
+		506CB15318567588006CB5CA /* SchnorrSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchnorrSignature.h; sourceTree = "<group>"; };
 		50A863C6181C7DEC0012CE52 /* 3way.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 3way.h; sourceTree = "<group>"; };
 		50A863C7181C7DEC0012CE52 /* adler32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adler32.h; sourceTree = "<group>"; };
 		50A863C8181C7DEC0012CE52 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -219,6 +261,19 @@
 		50A8644B181C7DED0012CE52 /* zinflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zinflate.h; sourceTree = "<group>"; };
 		50A8644C181C7DED0012CE52 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		50A8644D181C7E0E0012CE52 /* libcryptopp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcryptopp.a; sourceTree = "<group>"; };
+		50AC4702185698E900CC36B4 /* SchnorrSigningModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchnorrSigningModel.h; sourceTree = "<group>"; };
+		50AC4703185698E900CC36B4 /* SchnorrSigningModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SchnorrSigningModel.mm; sourceTree = "<group>"; };
+		50AC47051857327200CC36B4 /* SignMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignMessageViewController.h; path = "Cryptopp-for-iOS/SignMessageViewController.h"; sourceTree = "<group>"; };
+		50AC47061857327200CC36B4 /* SignMessageViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SignMessageViewController.mm; path = "Cryptopp-for-iOS/SignMessageViewController.mm"; sourceTree = "<group>"; };
+		50AC47071857327200CC36B4 /* SignMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SignMessageViewController.xib; path = "Cryptopp-for-iOS/SignMessageViewController.xib"; sourceTree = "<group>"; };
+		50AC470A1857336600CC36B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		50AC473E1857379200CC36B4 /* Information-Security2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Information-Security2.jpg"; path = "Cryptopp-for-iOS/Information-Security2.jpg"; sourceTree = "<group>"; };
+		50AC474318573D6800CC36B4 /* QRCodeEncoderObjectiveCAtGithub.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QRCodeEncoderObjectiveCAtGithub.xcodeproj; path = "Vendor/QR-Code-Encoder-for-Objective-C/QRCodeEncoderObjectiveCAtGithub.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		50AC4756185742F300CC36B4 /* UIView+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Geometry.h"; sourceTree = "<group>"; };
+		50AC4757185742F300CC36B4 /* UIView+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Geometry.m"; sourceTree = "<group>"; };
+		50E0AA8E187B6BC9005D5BF9 /* SigmaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SigmaViewController.h; path = "Cryptopp-for-iOS/CryptoppWrapper/SigmaViewController.h"; sourceTree = "<group>"; };
+		50E0AA8F187B6BC9005D5BF9 /* SigmaViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SigmaViewController.mm; path = "Cryptopp-for-iOS/CryptoppWrapper/SigmaViewController.mm"; sourceTree = "<group>"; };
+		50E0AA90187B6BC9005D5BF9 /* SigmaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SigmaViewController.xib; path = "Cryptopp-for-iOS/CryptoppWrapper/SigmaViewController.xib"; sourceTree = "<group>"; };
 		50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cryptocpp-key-gen.cpp"; sourceTree = "<group>"; };
 		50FBB719185394AD00BF2D25 /* cryptocpp-key-gen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cryptocpp-key-gen.h"; sourceTree = "<group>"; };
 		50FBB71A185394AD00BF2D25 /* Sigma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sigma.cpp; sourceTree = "<group>"; };
@@ -258,6 +313,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50AC474E18573D9300CC36B4 /* libqrencoder.a in Frameworks */,
 				5012B451181FF6C4008D74D4 /* AddressBook.framework in Frameworks */,
 				5012B452181FF6C4008D74D4 /* AddressBookUI.framework in Frameworks */,
 				5012B44E181FF6BA008D74D4 /* libiconv.dylib in Frameworks */,
@@ -285,21 +341,72 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		50AC4700185694AF00CC36B4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5012B453181FF6F2008D74D4 /* QRViewController.h */,
+				5012B454181FF6F2008D74D4 /* QRViewController.mm */,
+				5012B455181FF6F2008D74D4 /* QRViewController.xib */,
+				50AC47051857327200CC36B4 /* SignMessageViewController.h */,
+				50AC47061857327200CC36B4 /* SignMessageViewController.mm */,
+				50AC47071857327200CC36B4 /* SignMessageViewController.xib */,
+				50E0AA8E187B6BC9005D5BF9 /* SigmaViewController.h */,
+				50E0AA8F187B6BC9005D5BF9 /* SigmaViewController.mm */,
+				50E0AA90187B6BC9005D5BF9 /* SigmaViewController.xib */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		50AC474418573D6800CC36B4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				50AC474918573D6800CC36B4 /* libqrencoder.a */,
+				50AC474B18573D6800CC36B4 /* QRCodeEncoderDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		50AC4754185742D400CC36B4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				50AC4756185742F300CC36B4 /* UIView+Geometry.h */,
+				50AC4757185742F300CC36B4 /* UIView+Geometry.m */,
+				501EC9E2188E6E3100AD82A5 /* NSData+Base64.h */,
+				501EC9E3188E6E3100AD82A5 /* NSData+Base64.m */,
+				501EC9E7188E742D00AD82A5 /* NSString+CStringLossless.h */,
+				501EC9E8188E742D00AD82A5 /* NSString+CStringLossless.mm */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		50AC4755185742E200CC36B4 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				50AC474318573D6800CC36B4 /* QRCodeEncoderObjectiveCAtGithub.xcodeproj */,
+				5012B437181FF62D008D74D4 /* ZXingWidget.xcodeproj */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
 		50FBB717185394AD00BF2D25 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				506CB12F185650C5006CB5CA /* EncDecTest.h */,
+				506CB12E185650C5006CB5CA /* EncDecTest.cpp */,
 				50FBB7281853F27A00BF2D25 /* EncDecClass.h */,
 				50FBB7271853F27A00BF2D25 /* EncDecClass.cpp */,
-				50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */,
 				50FBB719185394AD00BF2D25 /* cryptocpp-key-gen.h */,
-				50FBB71A185394AD00BF2D25 /* Sigma.cpp */,
+				50FBB718185394AD00BF2D25 /* cryptocpp-key-gen.cpp */,
 				50FBB71B185394AD00BF2D25 /* Sigma.h */,
+				50FBB71A185394AD00BF2D25 /* Sigma.cpp */,
 				50FBB71F185394C800BF2D25 /* Hash.h */,
 				50FBB71E185394C800BF2D25 /* Hash.cpp */,
 				50FBB7221853A6F100BF2D25 /* KeyGenerator.h */,
 				50FBB7211853A6F100BF2D25 /* KeyGenerator.cpp */,
 				50FBB7261853E99D00BF2D25 /* AKETest.h */,
 				50FBB7241853E66E00BF2D25 /* AKETest.cpp */,
+				506CB15318567588006CB5CA /* SchnorrSignature.h */,
+				506CB15218567588006CB5CA /* SchnorrSignature.cpp */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -308,8 +415,10 @@
 			isa = PBXGroup;
 			children = (
 				5012B458181FF8F9008D74D4 /* Security-image.jpg */,
+				50AC473E1857379200CC36B4 /* Information-Security2.jpg */,
 				83F73A4414A468F10061CCFF /* CryptoppWrapper */,
 				83F72FC214A45BEC0061CCFF /* external */,
+				50AC4700185694AF00CC36B4 /* ViewControllers */,
 				83F72F6314A407170061CCFF /* Cryptopp-for-iOS */,
 				83F72F5C14A407170061CCFF /* Frameworks */,
 				83F72F5A14A407170061CCFF /* Products */,
@@ -344,9 +453,6 @@
 		83F72F6314A407170061CCFF /* Cryptopp-for-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				5012B453181FF6F2008D74D4 /* QRViewController.h */,
-				5012B454181FF6F2008D74D4 /* QRViewController.mm */,
-				5012B455181FF6F2008D74D4 /* QRViewController.xib */,
 				83F72F6C14A407170061CCFF /* CryptoppDemoAppDelegate.h */,
 				83F72F6D14A407170061CCFF /* CryptoppDemoAppDelegate.mm */,
 				83F72F6F14A407170061CCFF /* CryptoppDemoMainViewController.h */,
@@ -357,7 +463,8 @@
 				83F72F7814A407170061CCFF /* CryptoppDemoMainViewController_iPad.xib */,
 				83F72F7B14A407170061CCFF /* CryptoppDemoHashViewController_iPhone.xib */,
 				83F72F7E14A407170061CCFF /* CryptoppDemoHashViewController_iPad.xib */,
-				5012B437181FF62D008D74D4 /* ZXingWidget.xcodeproj */,
+				50AC4755185742E200CC36B4 /* Vendor */,
+				50AC470A1857336600CC36B4 /* Images.xcassets */,
 				83F72F6414A407170061CCFF /* Supporting Files */,
 			);
 			path = "Cryptopp-for-iOS";
@@ -544,6 +651,7 @@
 		83F73A4414A468F10061CCFF /* CryptoppWrapper */ = {
 			isa = PBXGroup;
 			children = (
+				50AC4754185742D400CC36B4 /* Categories */,
 				50FBB717185394AD00BF2D25 /* Core */,
 				5012B432181FEE9F008D74D4 /* SigmaKeyAgreement.h */,
 				5012B431181FEE9F008D74D4 /* SigmaKeyAgreement.mm */,
@@ -551,6 +659,8 @@
 				83F73A4614A468F10061CCFF /* CryptoppHash.mm */,
 				5012B434181FF447008D74D4 /* SigmaKeyValidation.h */,
 				5012B435181FF447008D74D4 /* SigmaKeyValidation.mm */,
+				50AC4702185698E900CC36B4 /* SchnorrSigningModel.h */,
+				50AC4703185698E900CC36B4 /* SchnorrSigningModel.mm */,
 			);
 			name = CryptoppWrapper;
 			path = "Cryptopp-for-iOS/CryptoppWrapper";
@@ -570,6 +680,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				50AC474D18573D8500CC36B4 /* PBXTargetDependency */,
 				5012B443181FF652008D74D4 /* PBXTargetDependency */,
 			);
 			name = "Cryptopp-for-iOS";
@@ -597,6 +708,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 50AC474418573D6800CC36B4 /* Products */;
+					ProjectRef = 50AC474318573D6800CC36B4 /* QRCodeEncoderObjectiveCAtGithub.xcodeproj */;
+				},
+				{
 					ProductGroup = 5012B438181FF62D008D74D4 /* Products */;
 					ProjectRef = 5012B437181FF62D008D74D4 /* ZXingWidget.xcodeproj */;
 				},
@@ -623,6 +738,20 @@
 			remoteRef = 5012B43E181FF62E008D74D4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		50AC474918573D6800CC36B4 /* libqrencoder.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libqrencoder.a;
+			remoteRef = 50AC474818573D6800CC36B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50AC474B18573D6800CC36B4 /* QRCodeEncoderDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = QRCodeEncoderDemo.app;
+			remoteRef = 50AC474A18573D6800CC36B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -630,10 +759,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50AC470B1857336600CC36B4 /* Images.xcassets in Resources */,
 				83F72F6814A407170061CCFF /* InfoPlist.strings in Resources */,
 				5012B457181FF6F2008D74D4 /* QRViewController.xib in Resources */,
 				83F72F7714A407170061CCFF /* CryptoppDemoMainViewController_iPhone.xib in Resources */,
+				50AC47091857327200CC36B4 /* SignMessageViewController.xib in Resources */,
+				50AC473F1857379200CC36B4 /* Information-Security2.jpg in Resources */,
 				83F72F7A14A407170061CCFF /* CryptoppDemoMainViewController_iPad.xib in Resources */,
+				50E0AA92187B6BC9005D5BF9 /* SigmaViewController.xib in Resources */,
 				5012B459181FF8F9008D74D4 /* Security-image.jpg in Resources */,
 				83F72F7D14A407170061CCFF /* CryptoppDemoHashViewController_iPhone.xib in Resources */,
 				83F72F8014A407170061CCFF /* CryptoppDemoHashViewController_iPad.xib in Resources */,
@@ -647,7 +780,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E0AA91187B6BC9005D5BF9 /* SigmaViewController.mm in Sources */,
+				50AC4758185742F300CC36B4 /* UIView+Geometry.m in Sources */,
 				50FBB7251853E66E00BF2D25 /* AKETest.cpp in Sources */,
+				506CB131185650C5006CB5CA /* EncDecTest.cpp in Sources */,
+				50AC4704185698E900CC36B4 /* SchnorrSigningModel.mm in Sources */,
+				50AC47081857327200CC36B4 /* SignMessageViewController.mm in Sources */,
 				83F72F6A14A407170061CCFF /* main.mm in Sources */,
 				5012B436181FF447008D74D4 /* SigmaKeyValidation.mm in Sources */,
 				50FBB7231853A6F100BF2D25 /* KeyGenerator.cpp in Sources */,
@@ -658,8 +796,11 @@
 				50FBB71D185394AD00BF2D25 /* Sigma.cpp in Sources */,
 				50FBB720185394C800BF2D25 /* Hash.cpp in Sources */,
 				83F72F7414A407170061CCFF /* CryptoppDemoHashViewController.m in Sources */,
+				501EC9E9188E742D00AD82A5 /* NSString+CStringLossless.mm in Sources */,
 				83F73A4714A468F10061CCFF /* CryptoppHash.mm in Sources */,
+				501EC9E4188E6E3100AD82A5 /* NSData+Base64.m in Sources */,
 				5012B456181FF6F2008D74D4 /* QRViewController.mm in Sources */,
+				506CB15418567588006CB5CA /* SchnorrSignature.cpp in Sources */,
 				50FBB71C185394AD00BF2D25 /* cryptocpp-key-gen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,6 +812,11 @@
 			isa = PBXTargetDependency;
 			name = ZXingWidget;
 			targetProxy = 5012B442181FF652008D74D4 /* PBXContainerItemProxy */;
+		};
+		50AC474D18573D8500CC36B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = qrencoder;
+			targetProxy = 50AC474C18573D8500CC36B4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -769,6 +915,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cryptopp-for-iOS/Cryptopp-for-iOS-Prefix.pch";
 				GCC_VERSION = "";
@@ -780,13 +928,16 @@
 					Vendor/Zxing/cpp/core/src,
 					/Users/pawelqus/Developer/iOS/Sample,
 					"Vendor/Zxing/iphone/ZXingWidget/Classes/**",
+					"\"$(SRCROOT)/Vendor/QR-Code-Encoder-for-Objective-C/QRCodeEncoderObjectiveCAtGithub\"",
 				);
 				INFOPLIST_FILE = "Cryptopp-for-iOS/Cryptopp-for-iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)/external/lib\\\"",
 					"/Users/pawelqus/Developer/iOS/Sample\\ apps/Library/Cryptography/CryptoPP-for-iOS/external/lib",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -796,6 +947,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cryptopp-for-iOS/Cryptopp-for-iOS-Prefix.pch";
 				GCC_VERSION = "";
@@ -807,8 +960,10 @@
 					Vendor/Zxing/cpp/core/src,
 					/Users/pawelqus/Developer/iOS/Sample,
 					"Vendor/Zxing/iphone/ZXingWidget/Classes/**",
+					"\"$(SRCROOT)/Vendor/QR-Code-Encoder-for-Objective-C/QRCodeEncoderObjectiveCAtGithub\"",
 				);
 				INFOPLIST_FILE = "Cryptopp-for-iOS/Cryptopp-for-iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)/external/lib\\\"",
