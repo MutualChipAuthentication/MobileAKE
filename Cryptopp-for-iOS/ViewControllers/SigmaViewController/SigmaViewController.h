@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZXingWidgetController.h"
-#import <MultiFormatReader.h>
 #import "SigmaKeyAgreement.h"
 
 
-@interface SigmaViewController : UIViewController <ZXingDelegate>
+@interface SigmaViewController : UIViewController
 @property (nonatomic, weak) IBOutlet UIView *qrView;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 

@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.79999999999999982" contentMode="scaleAspectFill" image="Security-image.jpg" id="Om7-xE-F8A">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.79999999999999982" contentMode="scaleAspectFill" image="Security-image" id="Om7-xE-F8A">
                     <rect key="frame" x="-347" y="-343" width="851" height="850"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
@@ -84,6 +84,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Security-image.jpg" width="851" height="850"/>
+        <image name="Security-image" width="851" height="850"/>
     </resources>
 </document>

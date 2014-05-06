@@ -8,6 +8,7 @@
 
 #import "SigmaViewController.h"
 #import "NSString+CStringLossless.h"
+#import "ScannerViewController.h"
 using namespace std;
 
 #import <QREncoder.h>
@@ -18,7 +19,7 @@ enum ScanType {
     ScanEstablish = 2
 };
 
-@interface SigmaViewController ()
+@interface SigmaViewController () <ScannerViewDelegate>
 @property (nonatomic, strong) SigmaKeyAgreement *sigma;
 @property (nonatomic, strong) SigmaKeyAgreement *s2;
 @property (nonatomic, strong) NSValue *message;
@@ -26,6 +27,7 @@ enum ScanType {
 @property (nonatomic, strong) NSValue *sessionsSignature;
 @property (nonatomic) ScanType scanType;
 @property (nonatomic, strong) UIImageView *qrcodeImageView;
+@property (nonatomic, strong) ScannerViewController *scannerViewController;
 
 @end
 static int counter;
@@ -82,35 +84,14 @@ static int counter;
 - (void)scanQrCode
 {
     [self.activityIndicator startAnimating];
-    
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        ZXingWidgetController * widController = [[ZXingWidgetController alloc] initWithDelegate:self
-                                                                                     showCancel:YES
-                                                                                       OneDMode:NO
-                                                                                    showLicense:NO];
-        
-        MultiFormatReader* qrcodeReader = [[MultiFormatReader alloc] init];
-        NSSet *readers = [[NSSet alloc ] initWithObjects:qrcodeReader,nil];
-        widController.readers = readers;
-        
-        widController.overlayView.displayedMessage = @"";
-        widController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [widController addNavigationBar];
-            [self presentViewController:widController animated:NO completion:^{
-                [self.activityIndicator stopAnimating];
-            }];
-        });
-    });
+    self.scannerViewController = [[ScannerViewController alloc] initWithNibName:@"ScannerViewController" bundle:nil];
+    [self.scannerViewController setDelegate:self];
+    [self presentViewController:self.scannerViewController animated:YES completion:nil];
 }
 
-#pragma mark ZXingDelegateMethods
-
-- (void)zxingController:(ZXingWidgetController*)controller didScanResult:(NSString *)resultString {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *lastCode = [preferences objectForKey:@"lastCode"];
+#pragma mark ScannerViewDelegate
+- (void)didScanResult:(NSString *)resultString
+{
     switch (self.scanType) {
         case ScanMessage:
             self.response = [self.s2 generateResponse:self.message];
@@ -129,7 +110,8 @@ static int counter;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)zxingControllerDidCancel:(ZXingWidgetController*)controller {
+- (void)didCancel
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

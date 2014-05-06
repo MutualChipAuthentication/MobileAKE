@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZXingWidgetController.h"
-#import <MultiFormatReader.h>
 
-@interface QRViewController : UIViewController <ZXingDelegate>
+@interface QRViewController : UIViewController
+
 @property (nonatomic, weak) IBOutlet UILabel *messageLabel;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)scanMessage:(id)sender;

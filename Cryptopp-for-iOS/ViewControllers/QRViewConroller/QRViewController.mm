@@ -8,6 +8,7 @@
 
 #import "QRViewController.h"
 #import "SchnorrSigningModel.h"
+#import "ScannerViewController.h"
 
 enum ScanType {
     ScanMessage = 0,
@@ -16,11 +17,13 @@ enum ScanType {
 };
 
 
-@interface QRViewController ()
+@interface QRViewController () <ScannerViewDelegate>
+
 @property (nonatomic) ScanType scanType;
 @property (nonatomic, strong) NSString *signatureString;
 @property (nonatomic, strong) NSString *publicKeyString;
 @property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) ScannerViewController *scannerViewController;
 @end
 
 @implementation QRViewController
@@ -35,11 +38,6 @@ enum ScanType {
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
 
 #pragma mark - Actions
 - (IBAction)scanSignature:(id)sender
@@ -69,41 +67,20 @@ enum ScanType {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Status" message:@"Signature is invalid" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alertView show];
     }
-    
 }
-#pragma mark - helpers
+
+#pragma mark - Helpers
 - (void)scanQrCode
 {
     [self.activityIndicator startAnimating];
-    
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        ZXingWidgetController * widController = [[ZXingWidgetController alloc] initWithDelegate:self
-                                                                                     showCancel:YES
-                                                                                       OneDMode:NO
-                                                                                    showLicense:NO];
-        
-        MultiFormatReader* qrcodeReader = [[MultiFormatReader alloc] init];
-        NSSet *readers = [[NSSet alloc ] initWithObjects:qrcodeReader,nil];
-        widController.readers = readers;
-        
-        widController.overlayView.displayedMessage = @"";
-        widController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [widController addNavigationBar];
-            [self presentViewController:widController animated:NO completion:^{
-                [self.activityIndicator stopAnimating];
-            }];
-        });
-    });
+    self.scannerViewController = [[ScannerViewController alloc] initWithNibName:@"ScannerViewController" bundle:nil];
+    [self.scannerViewController setDelegate:self];
+    [self presentViewController:self.scannerViewController animated:YES completion:nil];
 }
 
-#pragma mark ZXingDelegateMethods
-
-- (void)zxingController:(ZXingWidgetController*)controller didScanResult:(NSString *)resultString {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *lastCode = [preferences objectForKey:@"lastCode"];
+#pragma mark ScannerViewDelegate
+- (void)didScanResult:(NSString *)resultString
+{
     switch (self.scanType) {
         case ScanMessage:
             self.message = resultString;
@@ -121,7 +98,8 @@ enum ScanType {
    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)zxingControllerDidCancel:(ZXingWidgetController*)controller {
+- (void)didCancel
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
