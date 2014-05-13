@@ -15,14 +15,13 @@ void KeyGenerator::GenerateEphemeralKeyPair2(CryptoPP::RandomNumberGenerator &rn
 {
 	
 	Integer a = Integer(rng, eprivateKey->SizeInBytes());
-	cout<<"a: "<<a<<endl;
 	byte *aEncoded = new byte[eprivateKey->SizeInBytes()];
 	a.Encode(aEncoded, eprivateKey->SizeInBytes());
 	byte * privateKey = new byte[eprivateKey->SizeInBytes()];
 	privateKey = HashClass::getSHA1(aEncoded, eprivateKey->SizeInBytes());
+	eprivateKey->Assign(privateKey, eprivateKey->SizeInBytes());
 	//eprivateKey = new SecByteBlock(privateKey, eprivateKey->SizeInBytes());
-	CryptoPP::Integer exponent(privateKey, eprivateKey->SizeInBytes());
-	cout<<"exponent: "<<exponent;
+	CryptoPP::Integer exponent(eprivateKey->BytePtr(), eprivateKey->SizeInBytes());
 	CryptoPP::Integer cA = a_exp_b_mod_c(g, exponent, p);   //ca = g^H(a)
 	cA.Encode(*epublicKey, epublicKey->SizeInBytes());
 }
@@ -39,15 +38,23 @@ void KeyGenerator::GenerateEphemeralKeyPair2(CryptoPP::RandomNumberGenerator &rn
 //    return HashClass::getSHA1(encoded, keySize);
 //}
 
-byte * KeyGenerator::GenerateKeyFromHashedKey(const byte *key, int size, int random)
+//byte * KeyGenerator::GenerateKeyFromHashedKey(const byte *key, int size, int random)
+//{
+//	Integer k = CryptoPP::Integer(key, size);
+//    k += CryptoPP::Integer(random);
+//    byte *encoded = new byte[size];
+//	k.Encode(encoded, size);
+//    return HashClass::getSHA1(encoded, size);
+//}
+
+byte * KeyGenerator::GenerateKeyFromHashedKey(Integer key, Integer random, int size)
 {
-	Integer k = CryptoPP::Integer(key, size);
-    k += CryptoPP::Integer(random);
+	Integer k = key;
+    k += random;
     byte *encoded = new byte[size];
 	k.Encode(encoded, size);
     return HashClass::getSHA1(encoded, size);
 }
-
 
 byte * KeyGenerator::GenerateKeyFromHashedKeySec(byte *key, byte * sec_key, int sec_size){
 	Integer k = CryptoPP::Integer(key, keySize);

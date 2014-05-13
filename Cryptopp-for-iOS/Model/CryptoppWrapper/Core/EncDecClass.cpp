@@ -81,7 +81,7 @@ void EncDecClass::CipherPrettyPrinter(string cipher){
 			new StringSink(encoded)
 		) // HexEncoder
 	); // StringSource
-	cout << "cipher text: " << encoded << endl;
+	//cout << "cipher text: " << encoded << endl;
 }
 
 string EncDecClass::EncryptCert(unsigned char *cert ,int cert_size,
@@ -136,7 +136,7 @@ string EncDecClass::EncryptCert(unsigned char *cert ,int cert_size,
 }
 
 void EncDecClass::DecryptCertAndRa(string cipher_plus_iv,
-								   const byte * key, int key_size,
+								   byte * key, int key_size,
 								   string * decrypted_cert,
 								   byte * decrypted_ra, int * decrypted_ra_size){
 
@@ -177,8 +177,8 @@ void EncDecClass::DecryptCertAndRa(string cipher_plus_iv,
 			str_r    = recovered.substr(found + sizeof(SEPARATOR)*2,recovered.size());
 		}
 		
-		cout << "recovered text: " << endl;
-		cout << recovered << endl;
+		//cout << "recovered text: " << endl;
+		//cout << recovered << endl;
 	}
 	catch(const CryptoPP::Exception& e)
 	{
@@ -240,7 +240,7 @@ void EncDecClass::CertStringHexToString(string str_data, string * str_out){
 	   offset += 2;
 	}
 	str_out = &newString;
-	cout<<"Wynik: "<<*str_out<<endl;
+	//cout<<"Wynik: "<<*str_out<<endl;
 }
 
 //std::pair<std::vector<unsigned char>, std::vector<byte> > EncDecClass::decryptCert(string cert, 

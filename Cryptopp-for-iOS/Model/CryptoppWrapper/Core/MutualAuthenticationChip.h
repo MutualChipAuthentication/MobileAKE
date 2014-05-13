@@ -29,11 +29,9 @@ private:
 	bool is_initializator;
 	SecByteBlock * ephemeralPrivateKey;
 	SecByteBlock * ephemeralPublicKeyAnotherParty;
+	SecByteBlock * publicKeyAnotherParty;
 	SecByteBlock * K_byte;
-	byte * Ka;
-	byte * Kb;
-	byte * Ka_prim;
-	byte * Kb_prim;
+	SecByteBlock * K_session_key;
 	byte * rA;
 	byte * rB;
 	AutoSeededRandomPool  rnd;
@@ -43,6 +41,12 @@ private:
 	KeyGenerator *kg;
 	byte * iv;
 	int size_of_key_init_vect;
+	Integer ComputeK();
+	void SetKeysAnotherParty(string ephKey, string pubKey);
+	Integer ComputeEphemeralKeyAnotherValueToPrivateKey();
+	Integer ComputePublicKeyAnotherPartyToEphemeralKey();
+	void TestOfPower();
+	void ComputeSessionKey();
 public:
 	string cipher;
 	MutualAuthenticationChip(bool h): is_initializator(h) {
@@ -102,13 +106,17 @@ public:
     void GenerateEphemeralKeys();
     void dupa();
     void GetEphemeralPublicKey2(byte * epubKey, size_t & size);
+	int CompareRa(byte * decrypted_ra);
 	std::string GetEphemeralPublicKey();
     std::string ShowPublicKey();
     std::string ShowPrivateKey();
-	void SetEphemeralPublicKeyAnotherParty(std::string );
+	void SetEphemeralPublicKeyAnotherParty(std::string str_ephemeralPublicKeyAnotherParty, std::string str_publickKeyAnotherParty);
     int GetKeySize();
 	void EncryptCertKey();
-	void DecryptCertKey(string cipher);
+	void Generate2(SecByteBlock * publicB, SecByteBlock * privateB);
+	bool DecryptCertKey(string cipher);
 	SecByteBlock GetEphemeralPublicKey2();
+	SecByteBlock GetPublicKey();
+	void GenerateSessionKey();
 };
 

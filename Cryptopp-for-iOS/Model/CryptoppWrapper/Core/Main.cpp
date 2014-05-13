@@ -18,11 +18,20 @@ int main()
 
 	macA.GenerateEphemeralKeys();
 	macB.GenerateEphemeralKeys();
-	macA.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macB.GetEphemeralPublicKey2()));
-	macB.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macA.GetEphemeralPublicKey2()));
+	macA.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macB.GetEphemeralPublicKey2()), Converter::SecByteBlockToString(macB.GetPublicKey()));
+	//macA.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macA.GetEphemeralPublicKey2()));
+	macB.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macA.GetEphemeralPublicKey2()), Converter::SecByteBlockToString(macA.GetPublicKey()));
 
 	macA.EncryptCertKey();
-	macA.DecryptCertKey(macA.cipher);
+	if(macB.DecryptCertKey(macA.cipher)){
+		macB.EncryptCertKey();
+		macA.DecryptCertKey(macB.cipher);
+	};
+	//macB.DecryptCertKey(macA.cipher);
+	
+
+	//macA.ComputeSessionKey();
+	//macB.ComputeSessionKey();
 	//macB.DecryptCertKey(macA.cipher);
 
 	system("PAUSE");

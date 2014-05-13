@@ -60,7 +60,7 @@ public:
 	void CipherPrettyPrinter(string cipher);
 	
 	void DecryptCertAndRa(string cipher,
-						  const byte * key, int key_size,
+						  byte * key, int key_size,
 						  string * decrypted_cert,
 						  byte * decrypted_ra, int * decrypted_ra_size);
 

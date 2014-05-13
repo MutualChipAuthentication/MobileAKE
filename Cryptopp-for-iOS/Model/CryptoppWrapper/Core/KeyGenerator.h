@@ -57,7 +57,7 @@ public:
 	void GenerateEphemeralPublicKey(RandomNumberGenerator &rng, byte *privateKey) const; //cb^ha
     void GenerateEphemeralKeyPair(RandomNumberGenerator &rng, byte *privateKey, byte *publicKey) const;
 	void GenerateEphemeralKeyPair2(RandomNumberGenerator &rng, SecByteBlock * eprivateKey, SecByteBlock * epublicKey) const;
-    byte * GenerateKeyFromHashedKey(const byte *key, int size, int rand);
+    byte * GenerateKeyFromHashedKey(Integer key, Integer rand, int size);
 	byte * GenerateKeyFromHashedKeySec(byte *key, byte *sec_byte, int sec_size);
     byte * EstablishSessionKey(byte *ephemeralPrivateKey, byte * ephemeralPublicKey);
 
