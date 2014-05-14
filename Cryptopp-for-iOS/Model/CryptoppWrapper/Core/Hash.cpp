@@ -40,3 +40,21 @@ Integer Hash::getSHA1Integer(string m, Integer r)
     r.Decode(hashOutput, Hash::size);
     return r;
 }
+//***************************************************************
+Integer Hash::getSHA1IntgerPair(Integer m, Integer r)
+{
+    int rSize = r.MinEncodedSize();
+    int mSize = m.MinEncodedSize();
+    int messageSize =rSize + mSize;
+    byte endcodedM[mSize];
+    byte encodedR[rSize];
+    r.Encode(encodedR, rSize);
+    
+    byte hashInput[rSize + messageSize];
+    copy(endcodedM, endcodedM + messageSize, hashInput);
+    copy(encodedR, encodedR + rSize, hashInput + messageSize);
+    byte *hashOutput = getSHA1(hashInput, rSize+messageSize);
+    Integer result;
+    r.Decode(hashOutput, Hash::size);
+    return r;
+}

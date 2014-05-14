@@ -23,6 +23,7 @@ using CryptoPP::SecByteBlock;
 
 void AKETest::test()
 {
+    cout << "BEGIN TESTING " << endl;
     Integer p("0xB10B8F96A080E01DDE92DE5EAE5D54EC52C99FBCFB06A3C6"
               "9A6A9DCA52D23B616073E28675A23D189838EF1E2EE652C0"
               "13ECB4AEA906112324975C3CD49B83BFACCBDD7D90C4BD70"
@@ -74,5 +75,5 @@ void AKETest::test()
     
     keyGen.GenerateStaticKeyPair(rnd, sprivA, spubA);
     keyGen.GenerateEphemeralKeyPair(rnd, eprivA, epubA);
-
+    cout << "END TESTING " << endl;
 }

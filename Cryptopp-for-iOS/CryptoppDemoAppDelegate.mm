@@ -10,11 +10,10 @@
 #import "SignMessageViewController.h"
 #import "SigmaViewController.h"
 
-//#include "AKETest.h"
+#include "AKETest.h"
 #include "SchnorrSignature.h"
 //#import "CryptoppHash.h"
 //#import "Hash.h"
-
 
 #include "Sigma.h"
 
@@ -43,13 +42,13 @@
         [tabBarController setViewControllers:@[sigmaViewController, signMessageViewController, qrViewController]];
         self.window.rootViewController = tabBarController;
     }
-    Sigma::test();
-    [SigmaKeyAgreement simulateProtocol];
-    
+//    Sigma::test();
+//    [SigmaKeyAgreement simulateProtocol];
 //    SchnorrSigningModel *schnorr = [[SchnorrSigningModel alloc] init];
 //    [schnorr test];
     
-//    AKETest::test();
+    AKETest::test();
+    AKETest::test();
 //    CryptoppSHA *sha = [[CryptoppSHA alloc] initWithLength:CryptppSHALength1];
 //    NSString *message = @"hello";
 //    NSData *messageData = [message dataUsingEncoding:NSASCIIStringEncoding];

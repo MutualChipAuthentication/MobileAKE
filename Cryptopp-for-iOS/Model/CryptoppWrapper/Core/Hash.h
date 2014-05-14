@@ -23,6 +23,7 @@ class Hash{
 public:
     static byte * getSHA1(const byte * input, int size);
     static Integer getSHA1Integer(string m, Integer r);
+    static Integer Hash::getSHA1IntgerPair(Integer m, Integer r);
     static void printStringAsHex(byte *m, int length);
     static int size;
 };
