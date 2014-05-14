@@ -1,14 +1,4 @@
-//
-//  DiffieHellmanKey.h
-//  Cryptopp-for-iOS
-//
-//  Created by Paweł Nużka on 07.12.2013.
-//
-//
-
-#ifndef __Cryptopp_for_iOS__DiffieHellmanKey__
-#define __Cryptopp_for_iOS__DiffieHellmanKey__
-
+#pragma once
 #include <iostream>
 #include "cryptlib.h"
 #include "dsa.h"
@@ -28,7 +18,10 @@ using CryptoPP::DH;
 #include "dh2.h"
 using CryptoPP::DH2;
 using CryptoPP::RandomNumberGenerator;
-#include "Hash.h"
+#include "HashClass.h"
+#include "secblock.h"
+using CryptoPP::SecByteBlock;
+
 
 using namespace std;
 //NAMESPACE_BEGIN(CryptoPP)
@@ -43,7 +36,7 @@ public:
         p = dh.GetGroupParameters().GetModulus();
 		q = dh.GetGroupParameters().GetSubgroupOrder();
 		g = dh.GetGroupParameters().GetGenerator();
-        keySize = Hash::size;
+        keySize = HashClass::size;
     }
 
     
@@ -63,8 +56,9 @@ public:
 	unsigned int EphemeralPublicKeyLength() const { return keySize; }
 	void GenerateEphemeralPublicKey(RandomNumberGenerator &rng, byte *privateKey) const; //cb^ha
     void GenerateEphemeralKeyPair(RandomNumberGenerator &rng, byte *privateKey, byte *publicKey) const;
-
-    byte * GenerateKeyFromHashedKey(byte *key, int random);
+	void GenerateEphemeralKeyPair2(RandomNumberGenerator &rng, SecByteBlock * eprivateKey, SecByteBlock * epublicKey) const;
+    byte * GenerateKeyFromHashedKey(Integer key, Integer rand, int size);
+	byte * GenerateKeyFromHashedKeySec(byte *key, byte *sec_byte, int sec_size);
     byte * EstablishSessionKey(byte *ephemeralPrivateKey, byte * ephemeralPublicKey);
 
 protected:
@@ -72,5 +66,4 @@ protected:
     Integer p, q, g;
     
 };
-////////////////////////////////////////////////////////////
-#endif /* defined(__Cryptopp_for_iOS__DiffieHellmanKey__) */
+
