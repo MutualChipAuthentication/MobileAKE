@@ -7,7 +7,7 @@
 //
 
 #include "SchnorrSignature.h"
-#include "Hash.h"
+#include "HashClass.h"
 
 #include "nbtheory.h"
 using CryptoPP::ModularExponentiation;
@@ -68,7 +68,7 @@ Signature SchnorrSign::Sign(string message, Integer privateKey)
     AutoSeededRandomPool rng;
     Integer a = Integer(rng, Integer::Zero(), q);
     Integer r = a_exp_b_mod_c(g, a, p);
-    Integer hash = Hash::getSHA1Integer(message, r);
+    Integer hash = HashClass::getSHA1Integer(message, r);
     cout << "sign hash   " << hash << endl;
     Integer s = a + privateKey*hash;
     s %= q;
@@ -79,7 +79,7 @@ bool SchnorrSign::Verify(string message, Signature signature, Integer publicKey)
 {
     Integer r = signature.first;
     Integer s = signature.second;
-    Integer hash = Hash::getSHA1Integer(message, r);
+    Integer hash = HashClass::getSHA1Integer(message, r);
     cout << "verify hash " << hash << endl;
     Integer gs = a_exp_b_mod_c(g, s, p);
     Integer ryh = r*a_exp_b_mod_c(publicKey, hash, p);

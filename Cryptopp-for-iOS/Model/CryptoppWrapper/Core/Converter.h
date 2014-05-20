@@ -20,5 +20,6 @@ public:
 	static SecByteBlock encodeSecByteBlock(Integer key);
 	static SecByteBlock encodeSecByteBlockWithLength(Integer key, int length);
 	static std::string IntegerToString(Integer a);
+    static void test();
 };
 

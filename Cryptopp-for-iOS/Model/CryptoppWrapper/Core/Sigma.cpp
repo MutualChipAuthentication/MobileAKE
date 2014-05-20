@@ -7,7 +7,7 @@
 //
 
 #include "Sigma.h"
-#include "Hash.h"
+#include "HashClass.h"
 #include "SchnorrSignature.h"
 
 using CryptoPP::Exception;
@@ -162,7 +162,7 @@ Integer Sigma::GenerateSessionKey(SecByteBlock publicKeyA, SecByteBlock privateK
     gx.Decode(publicKeyA.BytePtr(), publicKeyA.SizeInBytes());
     y.Decode(privateKeyB.BytePtr(), privateKeyB.SizeInBytes());
     gxy = a_exp_b_mod_c(gx, y, p);
-    return Hash::getSHA1Integer("", gxy);
+    return HashClass::getSHA1Integer("", gxy);
 }
 //********************************************************************************************************
 void Sigma::GenerateDSASignatureKeyPair(RandomNumberGenerator &rng, DSA::PrivateKey &PrivateKey, DSA::PublicKey &PublicKey)

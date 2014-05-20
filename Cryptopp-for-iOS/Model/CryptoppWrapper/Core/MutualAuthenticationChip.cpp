@@ -19,11 +19,6 @@ void MutualAuthenticationChip::GenerateEphemeralKeys(){
 	cout<<"Part: "<<part<<" Zostaly wygenerowane klucze efemeryczne"<<endl;
 }
 
-void MutualAuthenticationChip::Generate2(SecByteBlock * pubKeyB, SecByteBlock * privKeyB){
-	rnd.Reseed();
-	kg->GenerateEphemeralKeyPair2(rnd, privKeyB, pubKeyB);
-}
-
 std::string MutualAuthenticationChip::GetEphemeralPublicKey(){
 	return Converter::SecByteBlockToString(*ephemeralPublicKey);
 }
@@ -42,12 +37,6 @@ std::string MutualAuthenticationChip::ShowPrivateKey(){
 	string s = Converter::SecByteBlockToString(*privateKey);
 	return s;
 }
-
-
-
-void MutualAuthenticationChip::GetEphemeralPublicKey2(byte * epubK, size_t &size){
-}
-
 
 void MutualAuthenticationChip::SetEphemeralPublicKeyAnotherParty(std::string str_ephemeralPublicKeyAnotherParty, 
 																 std::string str_publicKeyAnotherParty){
@@ -95,7 +84,7 @@ void MutualAuthenticationChip::EncryptCertKey(){
 	test.size();
 	byte * test_b = (byte*)test_c;
 	byte * Kx = new byte[AES::DEFAULT_KEYLENGTH];
-	//cout<<"PArt: "<<part<<" K przed szyfracj¹: "<<K<<endl;
+	//cout<<"PArt: "<<part<<" K przed szyfracja: "<<K<<endl;
 	if(is_initializator){
 		Kx = kg->GenerateKeyFromHashedKey(K, 1, AES::DEFAULT_KEYLENGTH); //Ka = H(K,1)
 	}else{
@@ -114,7 +103,6 @@ bool MutualAuthenticationChip::DecryptCertKey(string cipher){
 	CryptoPP::Integer K = ComputeK();
 	string decrypted_cert;
 	byte * decrypted_ra = new byte[HashClass::size];
-	byte * rA_prim = new byte[HashClass::size];
 	byte * Kx = new byte[AES::DEFAULT_KEYLENGTH];
 	int decrypted_ra_size;
 
@@ -236,4 +224,38 @@ void MutualAuthenticationChip::ComputeSessionKey(){
 	Integer SK(*K_session_key,HashClass::size);
 	cout<<"WYGENEROWANO KLUCZ SESYJNY DLA PARTU "<<part<<endl;
 	cout<<SK<<endl;
+}
+
+void MutualAuthenticationChip::test()
+{
+    MutualAuthenticationChip macA(true);
+	MutualAuthenticationChip macB(false);
+	macA.GenerateKeyPairs();
+	macB.GenerateKeyPairs();
+    
+	//string publicKey = macA.ShowPublicKey();
+	//string privateKey = macA.ShowPrivateKey();
+    
+	//cout<<"klucz publiczny w stringu: "<< publicKey << endl;
+	//cout<<"klucz prywatny w stringu: " <<privateKey << endl;
+    
+	macA.GenerateEphemeralKeys();
+	macB.GenerateEphemeralKeys();
+	macA.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macB.GetEphemeralPublicKey2()), Converter::SecByteBlockToString(macB.GetPublicKey()));
+	//macA.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macA.GetEphemeralPublicKey2()));
+	macB.SetEphemeralPublicKeyAnotherParty(Converter::SecByteBlockToString(macA.GetEphemeralPublicKey2()), Converter::SecByteBlockToString(macA.GetPublicKey()));
+    
+	macA.EncryptCertKey();
+	if(macB.DecryptCertKey(macA.cipher)){
+		macB.EncryptCertKey();
+		macA.DecryptCertKey(macB.cipher);
+	};
+	//macB.DecryptCertKey(macA.cipher);
+	
+    
+	//macA.ComputeSessionKey();
+	//macB.ComputeSessionKey();
+	//macB.DecryptCertKey(macA.cipher);
+    
+	system("PAUSE");
 }

@@ -69,8 +69,8 @@ public:
 		this->q = q;
 		this->g = g;
 		Integer v = ModularExponentiation(g, q, p);
-		if(v != Integer::One())
-			throw runtime_error("Failed to verify order of the subgroup");
+//		if(v != Integer::One())
+//			throw runtime_error("Failed to verify order of the subgroup");
 		if(is_initializator){
 			part = "A";
 			rnd.Reseed(false);
@@ -85,13 +85,6 @@ public:
 		
 		dh2 = new DH2(dh);
 		keySize = HashClass::size;
-		//byte iv_temp[] = { 0x40,0x41,0x42,0x43,0x44,0x45,0x46,0x47,
-  //      0x48,0x49,0x4a,0x4b,0x4c,0x4d,0x4e,0x4f };
-
-		//size_of_key_init_vect = sizeof(iv_temp);
-		//iv = new byte[size_of_key_init_vect];
-		//memcpy(iv, iv_temp, size_of_key_init_vect);
-
 	}
 	SecByteBlock * ephemeralPublicKey;
     Integer getP() { return p; }
@@ -118,5 +111,6 @@ public:
 	SecByteBlock GetEphemeralPublicKey2();
 	SecByteBlock GetPublicKey();
 	void GenerateSessionKey();
+    static void test();
 };
 

@@ -9,12 +9,14 @@
 #import "QRViewController.h"
 #import "SignMessageViewController.h"
 #import "SigmaViewController.h"
+#import "Converter.h"
 
 #include "AKETest.h"
 #include "SchnorrSignature.h"
 //#import "CryptoppHash.h"
-//#import "Hash.h"
+//#import "HashClass.h"
 
+#include "MutualAuthenticationChip.h"
 #include "Sigma.h"
 
 //#import "SchnorrSigningModel.h"
@@ -42,22 +44,23 @@
         [tabBarController setViewControllers:@[sigmaViewController, signMessageViewController, qrViewController]];
         self.window.rootViewController = tabBarController;
     }
+    Converter::test();
+    MutualAuthenticationChip::test();
 //    Sigma::test();
 //    [SigmaKeyAgreement simulateProtocol];
 //    SchnorrSigningModel *schnorr = [[SchnorrSigningModel alloc] init];
 //    [schnorr test];
-    
-    AKETest::test();
-    AKETest::test();
+//    AKETest::test();
+
 //    CryptoppSHA *sha = [[CryptoppSHA alloc] initWithLength:CryptppSHALength1];
 //    NSString *message = @"hello";
 //    NSData *messageData = [message dataUsingEncoding:NSASCIIStringEncoding];
 //    NSData *messageOutput = [sha getHashValue:messageData];
 //    NSLog(@"sha(%@) = %@", message, messageOutput);
-//    byte *result = Hash::getSHA1((const byte *)messageData.bytes, messageData.length);
+//    byte *result = HashClass::getSHA1((const byte *)messageData.bytes, messageData.length);
 //    messageOutput = [NSData dataWithBytes:result length:20];
 //    NSLog(@"sha(%@) = %@", message, messageOutput);
-//    result = Hash::getSHA1((const byte *)messageData.bytes, messageData.length);
+//    result = HashClass::getSHA1((const byte *)messageData.bytes, messageData.length);
 //    messageOutput = [NSData dataWithBytes:result length:20];
 //    NSLog(@"sha(%@) = %@", message, messageOutput);
 //    

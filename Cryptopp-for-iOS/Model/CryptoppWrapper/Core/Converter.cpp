@@ -1,5 +1,8 @@
 #include "Converter.h"
+#include <iostream>
 
+using namespace CryptoPP;
+using namespace std;
 
 std::string Converter::SecByteBlockToString(SecByteBlock data){
 	Integer a;
@@ -79,4 +82,40 @@ std::string Converter::IntegerToString(Integer i)
 std::string Converter::ByteToString(byte * data, int length){
 	std::string s(reinterpret_cast<char const*>(data), length);
 	return s;
+}
+
+
+//********************************************************************************************************
+Integer decodeSecByteBlock2(SecByteBlock key)
+{
+    Integer x;
+    x.Decode(key.BytePtr(), key.SizeInBytes());
+    return x;
+}
+//********************************************************************************************************
+SecByteBlock encodeSecByteBlock2(Integer key)
+{
+    int length = key.MinEncodedSize();
+    byte byteX [length];
+    key.Encode(byteX, length);
+    
+    SecByteBlock pubKeyA;
+    pubKeyA.Assign(byteX, length);
+    
+    //check
+    if (key != decodeSecByteBlock2(pubKeyA))
+        cout << "Error while encoding Integer to SecByteBlock" << endl;
+    
+    return pubKeyA;
+}
+
+
+
+void Converter::test()
+{
+    Integer input = CryptoPP::Integer(123123);
+//    Integer output =  Converter::decodeSecByteBlock(Converter::encodeSecByteBlock(input));
+    Integer output = decodeSecByteBlock2(encodeSecByteBlock2(input));
+    cout << "czy konwersja dziala prawidlowo ? " << (input == output) << endl;
+    string stringInput = 
 }
