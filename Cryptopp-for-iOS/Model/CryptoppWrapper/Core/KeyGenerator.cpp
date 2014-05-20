@@ -3,7 +3,7 @@
 void KeyGenerator::GenerateEphemeralKeyPair(CryptoPP::RandomNumberGenerator &rng, byte *privateKey, byte *publicKey) const
 {
     Integer a = Integer(rng, keySize);
-    byte *aEncoded;
+    byte *aEncoded = new byte[keySize];
     a.Encode(aEncoded, keySize);
     privateKey = HashClass::getSHA1(aEncoded, keySize);
     CryptoPP::Integer exponent(privateKey, keySize);
@@ -72,7 +72,7 @@ byte * KeyGenerator::EstablishSessionKey(byte *ephemeralPrivateKey, byte * ephem
     CryptoPP::Integer cb = CryptoPP::Integer(ephemeralPrivateKey, keySize);
     CryptoPP::Integer exp = CryptoPP::Integer(ephemeralPublicKey, keySize);
     CryptoPP::Integer key = a_exp_b_mod_c(cb, exp, p);
-    byte *sessionKey;
+    byte *sessionKey = new byte[keySize];
     key.Encode(sessionKey, keySize);
     return sessionKey;
 }
