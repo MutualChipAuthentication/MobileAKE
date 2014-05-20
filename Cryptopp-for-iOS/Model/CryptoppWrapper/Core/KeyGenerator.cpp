@@ -7,7 +7,6 @@ void KeyGenerator::GenerateEphemeralKeyPair(CryptoPP::RandomNumberGenerator &rng
     a.Encode(aEncoded, keySize);
     privateKey = HashClass::getSHA1(aEncoded, keySize);
     CryptoPP::Integer exponent(privateKey, keySize);
-    cout << "Exponent " << exponent << endl;
     CryptoPP::Integer cA = a_exp_b_mod_c(g, exponent, p);   //ca = g^H(a)
     cA.Encode(publicKey, keySize);
 }

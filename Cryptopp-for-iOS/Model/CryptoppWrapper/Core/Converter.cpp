@@ -1,14 +1,14 @@
 #include "Converter.h"
-#include <iostream>
 
-using namespace CryptoPP;
+#include <iostream>
+#include <string>
+
 using namespace std;
+using namespace CryptoPP;
 
 std::string Converter::SecByteBlockToString(SecByteBlock data){
-	Integer a;
-	a.Decode(data.BytePtr(), data.SizeInBytes());
-	//cout<< "ze secbyteblock do integera: "<<a<<endl;
-	std::ostrstream oss;
+	Integer a = decodeSecByteBlock(data);
+	std::ostringstream oss;
 	oss << std::hex << a;
 	std::string s(oss.str());
 	s = s.substr(0, 2*data.SizeInBytes()+1); //Do zapamiêtania. d³ugoœæ stringa z s wynosi 2*d³ugoœæ w bytach plus 1.
@@ -18,14 +18,16 @@ std::string Converter::SecByteBlockToString(SecByteBlock data){
 void Converter::FromStringToSecByteblock(std::string data, SecByteBlock * sbb_data, int size){
 	Integer a(data.c_str());
 	a.Encode(*sbb_data, size);
-	//TestIntegerAndSecByteBlock(a, sbb_data);
+	if(data.compare(SecByteBlockToString(*sbb_data))!=0){
+		std::cout << "Error while encoding string to SecByteBlock" << std::endl;
+	}
 }
 
-void Converter::TestIntegerAndSecByteBlock(Integer a, SecByteBlock * sbb){
-	std::cout<<"Jako integer: "<<std::hex<<a<<std::endl;
-	std::string s = SecByteBlockToString(*sbb);
-	std::cout<<"Jako string: "<<std::hex<<s<<std::endl;
-}
+//void Converter::TestIntegerAndSecByteBlock(Integer a, SecByteBlock * sbb){
+//	std::cout<<"Jako integer: "<<std::hex<<a<<std::endl;
+//	std::string s = SecByteBlockToString(*sbb);
+//	std::cout<<"Jako string: "<<std::hex<<s<<std::endl;
+//}
 
 //********************************************************************************************************
 Integer Converter::decodeSecByteBlock(SecByteBlock key)
@@ -38,14 +40,13 @@ Integer Converter::decodeSecByteBlock(SecByteBlock key)
 SecByteBlock Converter::encodeSecByteBlock(Integer key)
 {
     int length = key.MinEncodedSize();
-    byte * byteX;
+    byte * byteX = new byte[length];
+	
     key.Encode(byteX, length);
     
     SecByteBlock pubKeyA;
     pubKeyA.Assign(byteX, length);
 
-	std::cout<<"Key: " << key <<std::endl;
-	std::cout<<"Decoded: " << decodeSecByteBlock(pubKeyA) <<std::endl;
     //check
     if (key != decodeSecByteBlock(pubKeyA))
         std::cout << "Error while encoding Integer to SecByteBlock" << std::endl;
@@ -53,23 +54,6 @@ SecByteBlock Converter::encodeSecByteBlock(Integer key)
     return pubKeyA;
 }
 
-SecByteBlock Converter::encodeSecByteBlockWithLength(Integer key, int length)
-{
-    //int length = key.MinEncodedSize();
-    byte * byteX;
-    key.Encode(byteX, length);
-    
-    SecByteBlock pubKeyA;
-    pubKeyA.Assign(byteX, length);
-
-	std::cout<<"Key: " << key <<std::endl;
-	std::cout<<"Decoded: " << decodeSecByteBlock(pubKeyA) <<std::endl;
-    //check
-    if (key != decodeSecByteBlock(pubKeyA))
-        std::cout << "Error while encoding Integer to SecByteBlock" << std::endl;
-    
-    return pubKeyA;
-}
 
 
 std::string Converter::IntegerToString(Integer i)
@@ -84,38 +68,8 @@ std::string Converter::ByteToString(byte * data, int length){
 	return s;
 }
 
-
-//********************************************************************************************************
-Integer decodeSecByteBlock2(SecByteBlock key)
-{
-    Integer x;
-    x.Decode(key.BytePtr(), key.SizeInBytes());
-    return x;
-}
-//********************************************************************************************************
-SecByteBlock encodeSecByteBlock2(Integer key)
-{
-    int length = key.MinEncodedSize();
-    byte byteX [length];
-    key.Encode(byteX, length);
-    
-    SecByteBlock pubKeyA;
-    pubKeyA.Assign(byteX, length);
-    
-    //check
-    if (key != decodeSecByteBlock2(pubKeyA))
-        cout << "Error while encoding Integer to SecByteBlock" << endl;
-    
-    return pubKeyA;
-}
-
-
-
-void Converter::test()
-{
-    Integer input = CryptoPP::Integer(123123);
-//    Integer output =  Converter::decodeSecByteBlock(Converter::encodeSecByteBlock(input));
-    Integer output = decodeSecByteBlock2(encodeSecByteBlock2(input));
-    cout << "czy konwersja dziala prawidlowo ? " << (input == output) << endl;
-    string stringInput = 
+void Converter::test(){
+    Integer input = Integer(123);
+    Integer output = decodeSecByteBlock(encodeSecByteBlock(input));
+    cout << "is conversion successful " << (input == output) << endl;
 }
