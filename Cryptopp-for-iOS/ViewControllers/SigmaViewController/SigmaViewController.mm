@@ -9,9 +9,9 @@
 #import "SigmaViewController.h"
 #import "NSString+CStringLossless.h"
 #import "ScannerViewController.h"
+#import <iOS-QR-Code-Encoder/QRCodeGenerator.h>
 using namespace std;
 
-#import <QREncoder.h>
 
 enum ScanType {
     ScanMessage = 0,
@@ -129,10 +129,9 @@ static int counter;
     
     //first encode the string into a matrix of bools, TRUE for black dot and FALSE for white. Let the encoder decide the error correction level and version
     NSString *encodedString = [NSString stringFromValue:stringToEncode];
-    DataMatrix* qrMatrix = [QREncoder encodeWithECLevel:QR_ECLEVEL_AUTO version:QR_VERSION_AUTO string:encodedString];
     
     //then render the matrix
-    UIImage* qrcodeImage = [QREncoder renderDataMatrix:qrMatrix imageDimension:qrcodeImageDimension];
+    UIImage* qrcodeImage = [QRCodeGenerator qrImageForString:encodedString imageSize:qrcodeImageDimension];
     
     //put the image into the view
     [self.qrcodeImageView removeFromSuperview];

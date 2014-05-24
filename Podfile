@@ -1,7 +1,8 @@
-platform :ios, '6.0'
+platform :ios, '7.0'
 inhibit_all_warnings!
 
-target :Cryptopp-for-iOS do
+target :"Cryptopp-for-iOS" do
+    pod 'iOS-QR-Code-Encoder'
 end
 
 

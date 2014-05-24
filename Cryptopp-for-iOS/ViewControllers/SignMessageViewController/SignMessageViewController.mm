@@ -8,7 +8,7 @@
 
 #import "SignMessageViewController.h"
 #import "SchnorrSigningModel.h"
-#import <QREncoder.h>
+#import <iOS-QR-Code-Encoder/QRCodeGenerator.h>
 
 @interface SignMessageViewController ()
 @property (nonatomic, strong) NSDictionary *signatureDictionary;
@@ -62,11 +62,8 @@
     
     int qrcodeImageDimension = min(self.qrView.width, self.qrView.height);
 
-    //first encode the string into a matrix of bools, TRUE for black dot and FALSE for white. Let the encoder decide the error correction level and version
-    DataMatrix* qrMatrix = [QREncoder encodeWithECLevel:QR_ECLEVEL_AUTO version:QR_VERSION_AUTO string:stringToEncode];
-    
     //then render the matrix
-    UIImage* qrcodeImage = [QREncoder renderDataMatrix:qrMatrix imageDimension:qrcodeImageDimension];
+    UIImage* qrcodeImage = [QRCodeGenerator qrImageForString:stringToEncode imageSize:qrcodeImageDimension];
     
     //put the image into the view
     [self.qrcodeImageView removeFromSuperview];
