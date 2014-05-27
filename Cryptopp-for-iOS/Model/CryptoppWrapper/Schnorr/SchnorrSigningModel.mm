@@ -7,6 +7,7 @@
 //
 
 #import "SchnorrSigningModel.h"
+#import "NSString+Crypto.h"
 
 #include "osrng.h"
 using CryptoPP::AutoSeededRandomPool;
@@ -54,27 +55,18 @@ NSString *const kPublicKey = @"publicKey";
     Signature signature = schnorr.Sign(stringMessage, privateKey);
     string stringSignature = SchnorrSign::SignatureToString(signature);
     NSString *nsstringSignature = [[NSString alloc] initWithCString:stringSignature.c_str() encoding:NSASCIIStringEncoding];
-    NSString *publicKeyString = [SchnorrSigningModel IntegerToString:publicKey];
+    NSString *publicKeyString = [NSString stringWithInteger:publicKey];
     return @{kSignature: nsstringSignature, kMessage: message, kPublicKey: publicKeyString};
 }
-
-
-+ (NSString *)IntegerToString:(Integer)i
-{
-    string iString = SchnorrSign::IntegerToString(i);
-    return [[NSString alloc] initWithCString:iString.c_str() encoding:NSASCIIStringEncoding];
-}
-
 
 + (BOOL)verifySignature:(NSString *)signature ofMessage:(NSString *)message withPubKey:(NSString *)publicKey
 {
     SchnorrSign schnorSign = SchnorrSign();
     string messageToVerify = string([message cStringUsingEncoding:NSASCIIStringEncoding]);
     string signatureString = string([signature cStringUsingEncoding:NSASCIIStringEncoding]);
-    string pubKeyString = string([publicKey cStringUsingEncoding:NSASCIIStringEncoding]);
     
     Signature signatureToVerify = SchnorrSign::StringToSignature(signatureString);
-    Integer pubKey = SchnorrSign::StringToInteger(pubKeyString);
+    Integer pubKey = [publicKey cryptoIntegerValue];
     
     bool isValidSignature = schnorSign.Verify(messageToVerify, signatureToVerify, pubKey);
     if (isValidSignature)

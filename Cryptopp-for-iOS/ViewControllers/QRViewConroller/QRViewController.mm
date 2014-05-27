@@ -9,7 +9,7 @@
 #import "QRViewController.h"
 #import "SchnorrSigningModel.h"
 #import "ScannerViewController.h"
-
+#import "UIStoryboard+ProjectStoryboard.h"
 enum ScanType {
     ScanMessage = 0,
     ScanSignature = 1,
@@ -27,17 +27,6 @@ enum ScanType {
 @end
 
 @implementation QRViewController
-
-#pragma mark - View lifecycle
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 
 #pragma mark - Actions
 - (IBAction)scanSignature:(id)sender
@@ -73,9 +62,12 @@ enum ScanType {
 - (void)scanQrCode
 {
     [self.activityIndicator startAnimating];
-    self.scannerViewController = [[ScannerViewController alloc] initWithNibName:@"ScannerViewController" bundle:nil];
+    UIStoryboard *mainStoryboard = [UIStoryboard mainStoryboard];
+    self.scannerViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"ScannerViewController"];
     [self.scannerViewController setDelegate:self];
-    [self presentViewController:self.scannerViewController animated:YES completion:nil];
+    [self presentViewController:self.scannerViewController animated:YES completion:^{
+        [self.scannerViewController startRunning];
+    }];
 }
 
 #pragma mark ScannerViewDelegate

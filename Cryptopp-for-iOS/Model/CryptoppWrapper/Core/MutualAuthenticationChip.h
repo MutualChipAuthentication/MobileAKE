@@ -34,7 +34,6 @@ private:
 	SecByteBlock * K_session_key;
 	byte * rA;
 	byte * rB;
-	AutoSeededRandomPool  rnd;
 	DH dh;
 	DH2 * dh2;
 	EncDecClass edc;
@@ -49,7 +48,7 @@ private:
 	void ComputeSessionKey();
 public:
 	string cipher;
-	MutualAuthenticationChip(bool h): is_initializator(h) {
+	MutualAuthenticationChip(AutoSeededRandomPool &rnd, string h = "A"): part(h) {
 		Integer p("0xB10B8F96A080E01DDE92DE5EAE5D54EC52C99FBCFB06A3C6"
 				"9A6A9DCA52D23B616073E28675A23D189838EF1E2EE652C0"
 				"13ECB4AEA906112324975C3CD49B83BFACCBDD7D90C4BD70"
@@ -69,15 +68,7 @@ public:
 		this->q = q;
 		this->g = g;
 		Integer v = ModularExponentiation(g, q, p);
-//		if(v != Integer::One())
-//			throw runtime_error("Failed to verify order of the subgroup");
-		if(is_initializator){
-			part = "A";
-			rnd.Reseed(false);
-		}else{
-			part = "B";
-			rnd.Reseed(false);
-		}
+        rnd.Reseed(false);
 
 		dh.AccessGroupParameters().Initialize(this->p, this->q, this->g);
 
@@ -85,6 +76,9 @@ public:
 		
 		dh2 = new DH2(dh);
 		keySize = HashClass::size;
+        is_initializator = false;
+        this->GenerateKeyPairs(rnd);
+        this->GenerateEphemeralKeys(rnd);
 	}
 	SecByteBlock * ephemeralPublicKey;
     Integer getP() { return p; }
@@ -95,17 +89,17 @@ public:
     MutualAuthenticationChip(Integer p, Integer q, Integer g)
     : p(p), q(q), g(g) {}
 
-    void GenerateKeyPairs();
-    void GenerateEphemeralKeys();
-    void dupa();
+    void GenerateKeyPairs(AutoSeededRandomPool &rnd);
+    void GenerateEphemeralKeys(AutoSeededRandomPool &rnd);
     void GetEphemeralPublicKey2(byte * epubKey, size_t & size);
 	int CompareRa(byte * decrypted_ra);
 	std::string GetEphemeralPublicKey();
     std::string ShowPublicKey();
     std::string ShowPrivateKey();
-	void SetEphemeralPublicKeyAnotherParty(std::string str_ephemeralPublicKeyAnotherParty, std::string str_publickKeyAnotherParty);
+    std::string ShowSessionKey();
+	void SetEphemeralPublicKeyAnotherParty(std::string str_ephemeralPublicKeyAnotherParty, std::string str_publickKeyAnotherParty, bool isInitalizator);
     int GetKeySize();
-	void EncryptCertKey();
+	string EncryptCertKey();
 	void Generate2(SecByteBlock * publicB, SecByteBlock * privateB);
 	bool DecryptCertKey(string cipher);
 	SecByteBlock GetEphemeralPublicKey2();

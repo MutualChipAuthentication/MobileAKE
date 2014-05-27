@@ -38,6 +38,9 @@
 		50A704E91930B214006F2543 /* MACViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A704E81930B214006F2543 /* MACViewController.m */; };
 		50A704EB1930B238006F2543 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A704EA1930B238006F2543 /* MainStoryboard.storyboard */; };
 		50A7057C1930CC13006F2543 /* libcryptopp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A7057B1930CC13006F2543 /* libcryptopp.a */; };
+		50A706401930E6E1006F2543 /* UIStoryboard+ProjectStoryboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A7063F1930E6E1006F2543 /* UIStoryboard+ProjectStoryboard.m */; };
+		50A706441930EE2F006F2543 /* MutualChipAuthentication.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50A706431930EE2F006F2543 /* MutualChipAuthentication.mm */; };
+		50A706471931269B006F2543 /* NSString+Crypto.mm in Sources */ = {isa = PBXBuildFile; fileRef = 50A706461931269B006F2543 /* NSString+Crypto.mm */; };
 		50AC470B1857336600CC36B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50AC470A1857336600CC36B4 /* Images.xcassets */; };
 		83F72F5E14A407170061CCFF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F5D14A407170061CCFF /* UIKit.framework */; };
 		83F72F6014A407170061CCFF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F72F5F14A407170061CCFF /* Foundation.framework */; };
@@ -120,8 +123,14 @@
 		50A704BB192C08FB006F2543 /* HashClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashClass.h; sourceTree = "<group>"; };
 		50A704E71930B214006F2543 /* MACViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACViewController.h; sourceTree = "<group>"; };
 		50A704E81930B214006F2543 /* MACViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MACViewController.m; sourceTree = "<group>"; };
-		50A704EA1930B238006F2543 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		50A704EA1930B238006F2543 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainStoryboard.storyboard; path = MACViewController/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		50A7057B1930CC13006F2543 /* libcryptopp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; name = libcryptopp.a; path = "/Users/pawelqus/Developer/iOS/Sample_apps/Library/Cryptography/CryptoPP-for-iOS/external/lib/libcryptopp.a"; sourceTree = "<absolute>"; };
+		50A7063E1930E6E1006F2543 /* UIStoryboard+ProjectStoryboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+ProjectStoryboard.h"; sourceTree = "<group>"; };
+		50A7063F1930E6E1006F2543 /* UIStoryboard+ProjectStoryboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+ProjectStoryboard.m"; sourceTree = "<group>"; };
+		50A706421930EE2F006F2543 /* MutualChipAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutualChipAuthentication.h; sourceTree = "<group>"; };
+		50A706431930EE2F006F2543 /* MutualChipAuthentication.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MutualChipAuthentication.mm; sourceTree = "<group>"; };
+		50A706451931269B006F2543 /* NSString+Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Crypto.h"; sourceTree = "<group>"; };
+		50A706461931269B006F2543 /* NSString+Crypto.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+Crypto.mm"; sourceTree = "<group>"; };
 		50A863C6181C7DEC0012CE52 /* 3way.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 3way.h; sourceTree = "<group>"; };
 		50A863C7181C7DEC0012CE52 /* adler32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adler32.h; sourceTree = "<group>"; };
 		50A863C8181C7DEC0012CE52 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -301,6 +310,7 @@
 		5002FCA01919558C00A998BC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				50A704EA1930B238006F2543 /* MainStoryboard.storyboard */,
 				50A704E61930B200006F2543 /* MACViewController */,
 				5002FCA51919558C00A998BC /* QRViewConroller */,
 				5002FCA91919558C00A998BC /* ScannerViewController */,
@@ -356,6 +366,10 @@
 				5002FCB81919558C00A998BC /* NSString+CStringLossless.mm */,
 				5002FCB91919558C00A998BC /* UIView+Geometry.h */,
 				5002FCBA1919558C00A998BC /* UIView+Geometry.m */,
+				50A7063E1930E6E1006F2543 /* UIStoryboard+ProjectStoryboard.h */,
+				50A7063F1930E6E1006F2543 /* UIStoryboard+ProjectStoryboard.m */,
+				50A706451931269B006F2543 /* NSString+Crypto.h */,
+				50A706461931269B006F2543 /* NSString+Crypto.mm */,
 			);
 			name = Categories;
 			path = "Cryptopp-for-iOS/Categories";
@@ -379,6 +393,7 @@
 				5002FCD21919558C00A998BC /* Hash */,
 				5002FCD51919558C00A998BC /* Schnorr */,
 				5002FCD81919558C00A998BC /* Sigma */,
+				50A706411930EE17006F2543 /* MAC */,
 			);
 			path = CryptoppWrapper;
 			sourceTree = "<group>";
@@ -440,9 +455,17 @@
 			children = (
 				50A704E71930B214006F2543 /* MACViewController.h */,
 				50A704E81930B214006F2543 /* MACViewController.m */,
-				50A704EA1930B238006F2543 /* MainStoryboard.storyboard */,
 			);
 			path = MACViewController;
+			sourceTree = "<group>";
+		};
+		50A706411930EE17006F2543 /* MAC */ = {
+			isa = PBXGroup;
+			children = (
+				50A706421930EE2F006F2543 /* MutualChipAuthentication.h */,
+				50A706431930EE2F006F2543 /* MutualChipAuthentication.mm */,
+			);
+			path = MAC;
 			sourceTree = "<group>";
 		};
 		50AC474418573D6800CC36B4 /* Products */ = {
@@ -826,11 +849,14 @@
 				5002FCE11919558C00A998BC /* QRViewController.mm in Sources */,
 				5002FCF11919558C00A998BC /* KeyGenerator.cpp in Sources */,
 				5002FCF51919558C00A998BC /* CryptoppHash.mm in Sources */,
+				50A706441930EE2F006F2543 /* MutualChipAuthentication.mm in Sources */,
 				5002FCE41919558C00A998BC /* SigmaViewController.mm in Sources */,
 				5002FCF61919558C00A998BC /* SchnorrSigningModel.mm in Sources */,
 				5002FCF31919558C00A998BC /* Sigma.cpp in Sources */,
 				50A704BC192C08FB006F2543 /* HashClass.cpp in Sources */,
 				50A704E91930B214006F2543 /* MACViewController.m in Sources */,
+				50A706401930E6E1006F2543 /* UIStoryboard+ProjectStoryboard.m in Sources */,
+				50A706471931269B006F2543 /* NSString+Crypto.mm in Sources */,
 				5002FCEB1919558C00A998BC /* AKETest.cpp in Sources */,
 				50A704BE192C08FB006F2543 /* Converter.cpp in Sources */,
 				83F72F6E14A407170061CCFF /* CryptoppDemoAppDelegate.mm in Sources */,

@@ -22,10 +22,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    self.viewController = [[[QRCodeEncoderDemoViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
     return YES;
 }
 

@@ -18,6 +18,5 @@ UIKIT_EXTERN NSString *const kPublicKey;
 - (NSDictionary *)createSignatureForMessage:(NSString *)message;
 - (void)test;
 + (BOOL)verifySignature:(NSString *)signature ofMessage:(NSString *)message withPubKey:(NSString *)publicKey;
-+ (NSString *)IntegerToString:(Integer)i;
 
 @end

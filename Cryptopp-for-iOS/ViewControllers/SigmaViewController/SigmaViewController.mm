@@ -10,6 +10,7 @@
 #import "NSString+CStringLossless.h"
 #import "ScannerViewController.h"
 #import <iOS-QR-Code-Encoder/QRCodeGenerator.h>
+#import "UIStoryboard+ProjectStoryboard.h"
 using namespace std;
 
 
@@ -35,19 +36,10 @@ static int counter;
 @implementation SigmaViewController
 
 #pragma mark - View Lifecycle
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        self.sigma = [[SigmaKeyAgreement alloc] init];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.sigma = [[SigmaKeyAgreement alloc] init];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -84,9 +76,12 @@ static int counter;
 - (void)scanQrCode
 {
     [self.activityIndicator startAnimating];
-    self.scannerViewController = [[ScannerViewController alloc] initWithNibName:@"ScannerViewController" bundle:nil];
+    UIStoryboard *mainStoryboard = [UIStoryboard mainStoryboard];
+    self.scannerViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"ScannerViewController"];
     [self.scannerViewController setDelegate:self];
-    [self presentViewController:self.scannerViewController animated:YES completion:nil];
+    [self presentViewController:self.scannerViewController animated:YES completion:^{
+        [self.scannerViewController startRunning];
+    }];
 }
 
 #pragma mark ScannerViewDelegate

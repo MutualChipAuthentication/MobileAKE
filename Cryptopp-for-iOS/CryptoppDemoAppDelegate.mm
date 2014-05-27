@@ -16,10 +16,9 @@
 //#import "CryptoppHash.h"
 //#import "HashClass.h"
 
-#include "MutualAuthenticationChip.h"
+#include "MutualChipAuthentication.h"
 #include "Sigma.h"
 
-//#import "SchnorrSigningModel.h"
 
 @implementation CryptoppDemoAppDelegate
 
@@ -29,21 +28,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        SigmaViewController *sigmaViewController = [[SigmaViewController alloc] initWithNibName:@"SigmaViewController" bundle:nil];
-        
-        
-        QRViewController *qrViewController = [[QRViewController alloc] initWithNibName:@"QRViewController" bundle:nil];
-        self.navigationController = [[UINavigationController alloc] initWithRootViewController:qrViewController];
-        
-        SignMessageViewController *signMessageViewController = [[SignMessageViewController alloc] initWithNibName:@"SignMessageViewController" bundle:nil];
-        
-        UITabBarController *tabBarController = [[UITabBarController alloc] init];
-        [tabBarController setViewControllers:@[sigmaViewController, signMessageViewController, qrViewController]];
-        self.window.rootViewController = tabBarController;
+//        SigmaViewController *sigmaViewController = [[SigmaViewController alloc] initWithNibName:@"SigmaViewController" bundle:nil];
+//        
+//        
+//        QRViewController *qrViewController = [[QRViewController alloc] initWithNibName:@"QRViewController" bundle:nil];
+//        self.navigationController = [[UINavigationController alloc] initWithRootViewController:qrViewController];
+//        
+//        SignMessageViewController *signMessageViewController = [[SignMessageViewController alloc] initWithNibName:@"SignMessageViewController" bundle:nil];
+//        
+//        UITabBarController *tabBarController = [[UITabBarController alloc] init];
+//        [tabBarController setViewControllers:@[sigmaViewController, signMessageViewController, qrViewController]];
+//        self.window.rootViewController = tabBarController;
     }
+    [MutualChipAuthentication test2];
     Converter::test();
     MutualAuthenticationChip::test();
 //    Sigma::test();

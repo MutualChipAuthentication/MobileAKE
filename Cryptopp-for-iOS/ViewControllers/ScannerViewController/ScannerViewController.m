@@ -22,16 +22,6 @@
 
 @implementation ScannerViewController
 
-#pragma mark - View lifecycle
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,7 +38,7 @@
 }
 
 #pragma mark - Actions
-- (void)dissmiss
+- (IBAction)dissmiss:(id)sender;
 {
     [self.delegate didCancel];
 }
@@ -83,7 +73,7 @@
     _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     [_videoPreviewLayer setFrame:self.view.layer.bounds];
-    [self.view.layer insertSublayer:_videoPreviewLayer atIndex:1];
+    [self.scannerView.layer insertSublayer:_videoPreviewLayer atIndex:1];
     
     dispatch_async(_queue, ^{
         [_captureSession startRunning];
@@ -147,7 +137,7 @@
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.backgroundColor = [UIColor clearColor];
     
-    [self.view addSubview:imageView];
+    [self.scannerView addSubview:imageView];
     [imageView setCenter:self.view.center];
 }
 
