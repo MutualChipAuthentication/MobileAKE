@@ -10,4 +10,5 @@
 
 @interface UIStoryboard (ProjectStoryboard)
 + (UIStoryboard *)mainStoryboard;
++ (UIStoryboard *)procolStoryboard;
 @end

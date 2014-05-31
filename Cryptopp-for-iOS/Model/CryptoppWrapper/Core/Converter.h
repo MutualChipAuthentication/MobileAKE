@@ -18,6 +18,7 @@ public:
 	//static void TestIntegerAndSecByteBlock(Integer, SecByteBlock *);
 	static Integer decodeSecByteBlock(SecByteBlock key);
 	static SecByteBlock encodeSecByteBlock(Integer key);
+    static SecByteBlock * createSecByteBlock(Integer key);
 	static std::string IntegerToString(Integer a);
 	static void test();
 };

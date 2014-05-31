@@ -9,16 +9,20 @@
 #import "NSString+Crypto.h"
 #import "NSString+CStringLossless.h"
 #include <cryptopp/integer.h>
-
+#include "base64.h"
+#import "NSData+Base64.h"
 #include <sstream>
+#include <iostream>
+
 
 using namespace std;
 
 @implementation NSString (Crypto)
 + (NSString *)stringWithDefaultCString:(std::string)decodedString
 {
-    NSValue *stringAsValue = [NSValue valueWithPointer:new string(decodedString)];
-    return [NSString stringFromCStringLossless:stringAsValue];
+    string encoded = base64_encode((unsigned char const* )decodedString.c_str(), (unsigned int)decodedString.size());
+    string afterDecode = base64_decode(encoded);
+    return @(encoded.c_str());
 }
 
 + (NSString *)stringWithInteger:(CryptoPP::Integer)i
@@ -35,9 +39,8 @@ using namespace std;
 }
 - (std::string)defaultCString
 {
-    NSValue *decodedString = [self cstringFromLosslessString];
-    string encodedCString = *((string *)[decodedString pointerValue]);
-    return encodedCString;
+    string decoded = base64_decode([self cStringUsingEncoding:NSASCIIStringEncoding]);
+    return decoded;
 }
 
 @end

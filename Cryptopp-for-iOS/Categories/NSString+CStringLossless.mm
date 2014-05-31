@@ -24,7 +24,7 @@ using namespace std;
     string &s =  *(static_cast<std::string*>([cstring pointerValue]));
     void *sVoid = static_cast<void*>(&s);
     NSData *data = [NSData dataWithBytes:sVoid length:s.length()];
-    return [data base64Encoding];
+    return [data base64EncodedStringWithOptions:nil];
 }
 - (NSValue *)cstringFromLosslessString
 {

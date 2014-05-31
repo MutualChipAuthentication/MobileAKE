@@ -8,7 +8,7 @@
 
 #import "ScannerViewController.h"
 #import <AVFoundation/AVFoundation.h>
-
+#import "AVCaptureDevice+FrontCamera.h"
 
 @interface ScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -51,7 +51,7 @@
     
     _queue = dispatch_queue_create("qrScanner", NULL);
     NSError *error;
-    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDevice *captureDevice = [AVCaptureDevice frontFacingCameraIfAvailable];
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
     
     if (!input)

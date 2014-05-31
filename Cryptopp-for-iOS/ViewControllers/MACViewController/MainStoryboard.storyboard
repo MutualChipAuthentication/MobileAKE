@@ -24,6 +24,7 @@
         <!--Navigation Controller - Sigma-->
         <scene sceneID="jCW-Ca-S1V">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HDz-MX-Vha" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="cUD-jU-B1O" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Sigma" id="dyS-UP-PU3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="T2Y-sf-IxK">
@@ -33,13 +34,13 @@
                         <segue destination="TS1-WA-xIF" kind="relationship" relationship="rootViewController" id="7ig-N4-VAl"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HDz-MX-Vha" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-94" y="712"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="oby-L7-dDg">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Bb-BZ-aCa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController definesPresentationContext="YES" id="Wy7-3p-jrq" sceneMemberID="viewController">
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="L4Q-43-wNJ">
@@ -50,10 +51,8 @@
                     <connections>
                         <segue destination="sE8-hn-gOH" kind="relationship" relationship="viewControllers" id="B1F-h5-K6n"/>
                         <segue destination="cUD-jU-B1O" kind="relationship" relationship="viewControllers" id="eeU-07-Vka"/>
-                        <segue destination="1jA-ox-a0t" kind="relationship" relationship="viewControllers" id="GVq-Zb-VBB"/>
                     </connections>
                 </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Bb-BZ-aCa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-720" y="598"/>
         </scene>
@@ -223,124 +222,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CP8-W4-UmF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="376" y="712"/>
-        </scene>
-        <!--Navigation Controller - MAC-->
-        <scene sceneID="Kz7-76-xEc">
-            <objects>
-                <navigationController definesPresentationContext="YES" id="1jA-ox-a0t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="MAC" id="ofC-3L-fhe"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QYY-zH-SxV">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="jSo-l3-quI" kind="relationship" relationship="rootViewController" id="DKD-hk-sfN"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1BG-OU-Q39" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-79" y="1423"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="7oo-fq-P5S">
-            <objects>
-                <viewController storyboardIdentifier="MACViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jSo-l3-quI" customClass="MACViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QyP-Sh-xd5"/>
-                        <viewControllerLayoutGuide type="bottom" id="C5g-s9-AY1"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yFr-hX-2QU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugh-HP-h5f">
-                                <rect key="frame" x="86" y="143" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Generate initial message">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="generateEphemeralKey:" destination="jSo-l3-quI" eventType="touchUpInside" id="VuG-YK-ON4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9BR-Ed-Rsy">
-                                <rect key="frame" x="86" y="189" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Scan initial message">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="verifyEphemeralKey:" destination="jSo-l3-quI" eventType="touchUpInside" id="3sO-o9-IcK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8m-h3-eMD">
-                                <rect key="frame" x="86" y="237" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Encrypt ">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="generateAuthenticationData:" destination="jSo-l3-quI" eventType="touchUpInside" id="igp-w4-Ebs"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DX-jL-VEe">
-                                <rect key="frame" x="86" y="275" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Decrypt">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="verifyAuthenticationData:" destination="jSo-l3-quI" eventType="touchUpInside" id="QwU-Vi-eZb"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lUG-bm-aKS">
-                                <rect key="frame" x="0.0" y="372" width="320" height="153"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8T-Ad-i0w">
-                                <rect key="frame" x="242" y="91" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="setIsInitalizator:" destination="jSo-l3-quI" eventType="valueChanged" id="A5t-ZN-9cX"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Initializator" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3i-XZ-j81">
-                                <rect key="frame" x="136" y="96" width="83" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Session key" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBn-hj-Ogj">
-                                <rect key="frame" x="20" y="331" width="280" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPm-ba-t2w">
-                                <rect key="frame" x="100" y="306" width="155" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Generate session keys">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="generateSessionKey:" destination="jSo-l3-quI" eventType="touchUpInside" id="YJ0-Sj-41x"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ASb-A6-W0a"/>
-                    <connections>
-                        <outlet property="decryptButton" destination="5DX-jL-VEe" id="cWg-dt-bb8"/>
-                        <outlet property="encryptButton" destination="F8m-h3-eMD" id="t7i-52-5AP"/>
-                        <outlet property="generateSessionButton" destination="HPm-ba-t2w" id="WsY-xS-zgz"/>
-                        <outlet property="scanMessageButton" destination="9BR-Ed-Rsy" id="3lX-Tn-KGA"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T2D-1j-pV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="385" y="1423"/>
         </scene>
         <!--Sign Message View Controller-->
         <scene sceneID="j7w-tq-6GO">

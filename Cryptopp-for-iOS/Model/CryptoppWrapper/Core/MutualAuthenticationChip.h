@@ -77,7 +77,23 @@ public:
 		dh2 = new DH2(dh);
 		keySize = HashClass::size;
         is_initializator = false;
-        this->GenerateKeyPairs(rnd);
+        if (h == "A")
+        {
+            Integer pubKey = CryptoPP::Integer("30222313103416484737728074612425214126734791862902310075404137175196490255087357276634530623209055864437547252587560242012951252123883845471428300996630382283841646354968561208085927173525510706082475459851860792820176457822967649557768154303922217472248717392402506600192733705517151755320886806822808293568");
+            Integer privKey = Integer("760986887347144154595862811575615374796752848751");
+            
+            publicKey = Converter::createSecByteBlock(pubKey);
+            privateKey = Converter::createSecByteBlock(privKey);
+        }
+        else if (h == "B")
+        {
+            Integer pubKey = CryptoPP::Integer("14937252435456816444315144988606834394405620177779470871314613282765209100656000546289874717514307843372460147271927179132591019166403117763752044377923030284277665081681429636803343669361207907144378001193776859330592525966966787427742150822910770827385205862373202130377453205416037048248518669196478538474");
+            Integer privKey = Integer("556487849058594585561145389138531342141308623513");
+            publicKey = Converter::createSecByteBlock(pubKey);
+            privateKey = Converter::createSecByteBlock(privKey);
+        }
+        else
+            this->GenerateKeyPairs(rnd);
         this->GenerateEphemeralKeys(rnd);
 	}
 	SecByteBlock * ephemeralPublicKey;
@@ -97,6 +113,8 @@ public:
     std::string ShowPublicKey();
     std::string ShowPrivateKey();
     std::string ShowSessionKey();
+    std::string ShowOtherPartyPublicKey();
+
 	void SetEphemeralPublicKeyAnotherParty(std::string str_ephemeralPublicKeyAnotherParty, std::string str_publickKeyAnotherParty, bool isInitalizator);
     int GetKeySize();
 	string EncryptCertKey();

@@ -6,13 +6,14 @@ void MutualAuthenticationChip::GenerateKeyPairs(AutoSeededRandomPool &rnd){
 	publicKey = new SecByteBlock(dh.PublicKeyLength());   //yA = g^xA - public key
 	kg->GenerateStaticKeyPair(rnd, *privateKey, *publicKey);
 	cout<<"Part: "<<part<<" Zostaly wygenerowane klucze"<<endl;
+    cout << "Public key " << Converter::decodeSecByteBlock(*publicKey) << endl;
+    cout << "Private key " << Converter::decodeSecByteBlock(*privateKey) << endl;
 }
 
 void MutualAuthenticationChip::GenerateEphemeralKeys(AutoSeededRandomPool &rnd){
 	ephemeralPrivateKey = new SecByteBlock(dh2->EphemeralPrivateKeyLength()); //hA = H(a)
 	ephemeralPublicKey = new SecByteBlock(dh2->EphemeralPublicKeyLength());  //cA = g^hA
     kg->GenerateEphemeralKeyPair2(rnd, ephemeralPrivateKey, ephemeralPublicKey);
-    
     
 	cout<<"Part: "<<part<<" Zostaly wygenerowane klucze efemeryczne"<<endl;
 }
@@ -39,6 +40,20 @@ std::string MutualAuthenticationChip::ShowPrivateKey(){
 std::string MutualAuthenticationChip::ShowSessionKey(){
 	string s = Converter::SecByteBlockToString(*K_session_key);
 	return s;
+}
+
+std::string MutualAuthenticationChip::ShowOtherPartyPublicKey()
+{
+    Integer pubKey;
+    if (this->part == "B")
+    {
+         pubKey = CryptoPP::Integer("30222313103416484737728074612425214126734791862902310075404137175196490255087357276634530623209055864437547252587560242012951252123883845471428300996630382283841646354968561208085927173525510706082475459851860792820176457822967649557768154303922217472248717392402506600192733705517151755320886806822808293568");
+    }
+    else
+    {
+        pubKey = CryptoPP::Integer("14937252435456816444315144988606834394405620177779470871314613282765209100656000546289874717514307843372460147271927179132591019166403117763752044377923030284277665081681429636803343669361207907144378001193776859330592525966966787427742150822910770827385205862373202130377453205416037048248518669196478538474");
+    }
+    return Converter::SecByteBlockToString(Converter::encodeSecByteBlock(pubKey));
 }
 
 

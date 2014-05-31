@@ -33,6 +33,7 @@ NSString *const kPublicKey = @"publicKey";
     {
         AutoSeededRandomPool rnd;
         MAC = new MutualAuthenticationChip(rnd, [name cStringUsingEncoding:NSASCIIStringEncoding]);
+        [self setOtherPartyPublicData:@{kPublicKey:[self otherPartyPublicKey]}];
         _isInitator = isInitator;
     }
     return self;
@@ -42,12 +43,12 @@ NSString *const kPublicKey = @"publicKey";
 {
     MutualChipAuthentication *partA = [[MutualChipAuthentication alloc] initWithName:@"A" isInitator:YES];
     MutualChipAuthentication *partB = [[MutualChipAuthentication alloc] initWithName:@"B" isInitator:NO];
-    [partA setOtherPartyPublicData:@{kPublicKey:partB.publicKey}];
-    [partB setOtherPartyPublicData:@{kPublicKey:partA.publicKey}];
     
     NSString *ephemeralKeyA = [partA generateInitalMessage];
+    NSLog(@"ephemeral key A %@", ephemeralKeyA);
     [partB setEphemeralKeyOtherParty:ephemeralKeyA];
     NSString *ephemeralKeyB = [partB generateInitalMessage];
+    NSLog(@"ephemeral key B %@", ephemeralKeyB);
     [partA setEphemeralKeyOtherParty:ephemeralKeyB];
     NSString *encryptKeyA = [partA generateMessage];
     [partB setEncryptionKeyOtherParty:encryptKeyA];
@@ -121,9 +122,14 @@ NSString *const kPublicKey = @"publicKey";
 {
     return [NSString stringWithDefaultCString:MAC->ShowPublicKey()];
 }
+- (NSString *)otherPartyPublicKey
+{
+    return [NSString stringWithDefaultCString:MAC->ShowOtherPartyPublicKey()];
+}
 - (NSString *)ephemeralPublicKey
 {
     return [NSString stringWithDefaultCString:MAC->GetEphemeralPublicKey()];
 }
+
 
 @end

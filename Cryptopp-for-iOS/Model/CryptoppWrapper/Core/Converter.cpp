@@ -54,6 +54,18 @@ SecByteBlock Converter::encodeSecByteBlock(Integer key)
     return pubKeyA;
 }
 
+SecByteBlock * Converter::createSecByteBlock(Integer key)
+{
+    int length = key.MinEncodedSize();
+    byte byteX [length];
+    key.Encode(byteX, length);
+    
+    SecByteBlock *publicKey = new CryptoPP::SecByteBlock;
+    publicKey -> Assign(byteX, length);
+    return publicKey;
+}
+
+
 
 
 std::string Converter::IntegerToString(Integer i)

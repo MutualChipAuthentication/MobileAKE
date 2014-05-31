@@ -6,7 +6,7 @@
 //
 //
 
-#import "QRViewController.h"
+#import "SchnorrViewController.h"
 #import "SchnorrSigningModel.h"
 #import "ScannerViewController.h"
 #import "UIStoryboard+ProjectStoryboard.h"
@@ -17,7 +17,7 @@ enum ScanType {
 };
 
 
-@interface QRViewController () <ScannerViewDelegate>
+@interface SchnorrViewController () <ScannerViewDelegate>
 
 @property (nonatomic) ScanType scanType;
 @property (nonatomic, strong) NSString *signatureString;
@@ -26,7 +26,7 @@ enum ScanType {
 @property (nonatomic, strong) ScannerViewController *scannerViewController;
 @end
 
-@implementation QRViewController
+@implementation SchnorrViewController
 
 #pragma mark - Actions
 - (IBAction)scanSignature:(id)sender

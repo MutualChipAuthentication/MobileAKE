@@ -7,12 +7,14 @@
 //
 
 #import "MACViewController.h"
-#import "NSString+CStringLossless.h"
 #import "MutualChipAuthentication.h"
-#import <iOS-QR-Code-Encoder/QRCodeGenerator.h>
+#import "QRViewController.h"
 #import "ScannerViewController.h"
+#import "ResultViewController.h"
 #import "UIStoryboard+ProjectStoryboard.h"
 
+
+const int kSingleProtocolPhaseTime = 6;
 
 typedef enum : NSUInteger {
     ScanTypeMessage,
@@ -23,6 +25,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) MutualChipAuthentication *MAC;
 @property (nonatomic, strong) UIImageView *qrcodeImageView;
 @property (nonatomic, assign) ScanType scanType;
+@property (nonatomic, strong) NSArray *protocolMethods;
 @end
 
 @implementation MACViewController
@@ -30,38 +33,86 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _MAC = [[MutualChipAuthentication alloc] initWithName:@"A" isInitator:YES];
     // Do any additional setup after loading the view.
 }
 
 #pragma mark - Actions
-- (IBAction)setIsInitalizator:(UISwitch *)sender
+- (IBAction)startAsInitator:(id)sender
 {
-    _MAC = [[MutualChipAuthentication alloc] initWithName:@"A" isInitator:sender.selected];
+    _MAC = [[MutualChipAuthentication alloc] initWithName:@"A" isInitator:YES];
+    [self generateEphemeralKeyWithCompletion:^{
+        [self verifyEphemeralKeyWithCompletion:^{
+            [self generateAuthenticationDataWithCompletion:^{
+                [self verifyAuthenticationDataWithCompletion:^{
+                    if (self.MAC.encryptionKeyOtherParty != nil)
+                    {
+                        [self showResult:[self.MAC generateSessionKey]];
+                    }
+                }];
+            }];
+        }];
+    }];
 }
-- (IBAction)generateEphemeralKey:(id)sender
+- (IBAction)startAsReceiver:(id)sender
+{
+    _MAC = [[MutualChipAuthentication alloc] initWithName:@"B" isInitator:NO];
+    [self verifyEphemeralKeyWithCompletion:^{
+        [self generateEphemeralKeyWithCompletion:^{
+            [self verifyAuthenticationDataWithCompletion:^{
+                [self generateAuthenticationDataWithCompletion:^{
+                    if (self.MAC.encryptionKeyOtherParty != nil)
+                    {
+                        [self showResult:[self.MAC generateSessionKey]];
+                    }
+                }];
+            }];
+        }];
+    }];
+}
+
+static int counter = 0;
+
+
+
+
+#pragma mark - Protocol run
+- (void)generateEphemeralKeyWithCompletion:(void (^)(void))completion
 {
     NSString *ephemeralKey = [self.MAC generateInitalMessage];
-    [self encodeQRString:ephemeralKey];
+    NSLog(@"ephemeral key %@", ephemeralKey);
+    [self showQRString:ephemeralKey completion:completion];
 }
-- (IBAction)verifyEphemeralKey:(id)sender
+- (void)verifyEphemeralKeyWithCompletion:(void (^)(void))completion
 {
     _scanType = ScanTypeMessage;
-    [self scanQrCode];
+    [self scanQrCodeWithCompletion:^{
+        if (self.MAC.ephemeralKeyOtherParty != nil)
+        {
+            if (completion)
+                completion();
+        }
+        else
+        {
+            [self restartProtocol];
+        }
+    }];
 }
-- (IBAction)generateAuthenticationData:(id)sender
+
+- (void)generateAuthenticationDataWithCompletion:(void (^)(void))completion
 {
     NSString *authenticationData = [self.MAC generateMessage];
-    [self encodeQRString:authenticationData];
+    [self showQRString:authenticationData completion:completion];
 }
-- (IBAction)verifyAuthenticationData:(id)sender
+- (void)verifyAuthenticationDataWithCompletion:(void (^)(void))completion
 {
     _scanType = ScanTypeEstablish;
-    [self scanQrCode];
+    [self scanQrCodeWithCompletion:completion];
 }
-- (IBAction)generateSessionKey:(id)sender
+
+- (void)restartProtocol
 {
-    self.sessionKeyLabel.text = [self.MAC generateSessionKey];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    DLog(@"restart protocol");
 }
 
 #pragma mark ScannerViewDelegate
@@ -69,15 +120,16 @@ typedef enum : NSUInteger {
 {
     switch (self.scanType) {
         case ScanTypeMessage:
+            NSLog(@"ephemeral key %@", resultString);
             [self.MAC setEphemeralKeyOtherParty:resultString];
             break;
         case ScanTypeEstablish:
+            NSLog(@"encrypted key %@", resultString);
             [self.MAC setEncryptionKeyOtherParty:resultString];
             break;
         default:
             break;
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didCancel
@@ -86,29 +138,72 @@ typedef enum : NSUInteger {
 }
 
 #pragma mark - Helpers
-- (void)encodeQRString:(NSString *)encodedString
+- (void)showQRString:(NSString *)encodedString completion:(void (^)(void))completion
 {
-    int qrcodeImageDimension = fmin(self.qrView.width, self.qrView.height);
+    UIStoryboard *procolStoryboard = [UIStoryboard procolStoryboard];
+    QRViewController *qrViewController = [procolStoryboard instantiateViewControllerWithIdentifier:@"QRViewController"];
+    [qrViewController setEncodedString:encodedString];
     
-    UIImage* qrcodeImage = [QRCodeGenerator qrImageForString:encodedString imageSize:qrcodeImageDimension];
-    
-    //put the image into the view
-    [self.qrcodeImageView removeFromSuperview];
-    self.qrcodeImageView = [[UIImageView alloc] initWithImage:qrcodeImage];
-    
-    //and that's it!
-    [self.qrView addSubview:self.qrcodeImageView];
-    [self.qrcodeImageView setX:(self.qrView.width - self.qrcodeImageView.width)/2];
+    [self presentViewController:qrViewController animated:NO completion:^{
+        [self dissmissViewAfterDelay:kSingleProtocolPhaseTime withCompletion:completion];
+    }];
 }
 
-- (void)scanQrCode
+- (void)scanQrCodeWithCompletion:(void (^)(void))completion
 {
-    UIStoryboard *mainStoryboard = [UIStoryboard mainStoryboard];
-    ScannerViewController *scannerViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"ScannerViewController"];
+    UIStoryboard *procolStoryboard = [UIStoryboard procolStoryboard];
+    ScannerViewController *scannerViewController = [procolStoryboard instantiateViewControllerWithIdentifier:@"ScannerViewController"];
     [scannerViewController setDelegate:self];
     [self presentViewController:scannerViewController animated:YES completion:^{
         [scannerViewController startRunning];
+        [self dissmissViewAfterDelay:kSingleProtocolPhaseTime withCompletion:completion];
     }];
+}
+
+- (void)dissmissViewAfterDelay:(int)delayInSeconds withCompletion:(void (^)(void))completion
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:completion];
+    });
+}
+
+- (void)showResult:(NSString *)sessionKey
+{
+    NSLog(@"established session key %@", sessionKey);
+    UIStoryboard *procolStoryboard = [UIStoryboard procolStoryboard];
+    ResultViewController *resultViewController = [procolStoryboard instantiateViewControllerWithIdentifier:@"ResultViewController"];
+    [resultViewController setSessionKey:sessionKey];
+    [self presentViewController:resultViewController animated:YES completion:nil];
+}
+
+#pragma mark - Actions
+- (IBAction)showEphemeralKey:(id)sender
+{
+    if (counter == 0)
+        _MAC = [[MutualChipAuthentication alloc] initWithName:@"A" isInitator:YES];
+    else
+        _MAC = [[MutualChipAuthentication alloc] initWithName:@"B" isInitator:NO];
+    
+    [self generateEphemeralKeyWithCompletion:nil];
+    counter++;
+}
+- (IBAction)readEphemeralKey:(id)sender
+{
+    if (counter == 0)
+        _MAC = [[MutualChipAuthentication alloc] initWithName:@"B" isInitator:NO];
+    else
+        _MAC = [[MutualChipAuthentication alloc] initWithName:@"A" isInitator:YES];
+    
+    [self verifyEphemeralKeyWithCompletion:nil];
+    counter++;
+}
+- (IBAction)showEncryptedKey:(id)sender
+{
+    [self generateAuthenticationDataWithCompletion:nil];
+}
+- (IBAction)readEncryptedKey:(id)sender
+{
+    [self verifyAuthenticationDataWithCompletion:nil];
 }
 
 

@@ -13,5 +13,9 @@
 {
     return [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
 }
++ (UIStoryboard *)procolStoryboard
+{
+    return [UIStoryboard storyboardWithName:@"MACStoryboard" bundle:nil];
+}
 
 @end
