@@ -33,6 +33,7 @@
 		5012B451181FF6C4008D74D4 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5012B44F181FF6C4008D74D4 /* AddressBook.framework */; };
 		5012B452181FF6C4008D74D4 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5012B450181FF6C4008D74D4 /* AddressBookUI.framework */; };
 		502350B71937D32E00D8C863 /* AVCaptureDevice+FrontCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 502350B61937D32E00D8C863 /* AVCaptureDevice+FrontCamera.m */; };
+		50815B111941D2EA00399711 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50815B101941D2EA00399711 /* CoreAudio.framework */; };
 		50A704BC192C08FB006F2543 /* HashClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A704B6192C08FB006F2543 /* HashClass.cpp */; };
 		50A704BD192C08FB006F2543 /* MutualAuthenticationChip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A704B7192C08FB006F2543 /* MutualAuthenticationChip.cpp */; };
 		50A704BE192C08FB006F2543 /* Converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A704B8192C08FB006F2543 /* Converter.cpp */; };
@@ -122,6 +123,7 @@
 		5012B450181FF6C4008D74D4 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		502350B51937D32E00D8C863 /* AVCaptureDevice+FrontCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVCaptureDevice+FrontCamera.h"; sourceTree = "<group>"; };
 		502350B61937D32E00D8C863 /* AVCaptureDevice+FrontCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVCaptureDevice+FrontCamera.m"; sourceTree = "<group>"; };
+		50815B101941D2EA00399711 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		50A704B6192C08FB006F2543 /* HashClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashClass.cpp; sourceTree = "<group>"; };
 		50A704B7192C08FB006F2543 /* MutualAuthenticationChip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MutualAuthenticationChip.cpp; sourceTree = "<group>"; };
 		50A704B8192C08FB006F2543 /* Converter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Converter.cpp; sourceTree = "<group>"; };
@@ -303,13 +305,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50815B111941D2EA00399711 /* CoreAudio.framework in Frameworks */,
+				5012B448181FF69F008D74D4 /* AudioToolbox.framework in Frameworks */,
 				5012B451181FF6C4008D74D4 /* AddressBook.framework in Frameworks */,
 				5012B452181FF6C4008D74D4 /* AddressBookUI.framework in Frameworks */,
 				5012B44E181FF6BA008D74D4 /* libiconv.dylib in Frameworks */,
 				5012B44C181FF6AD008D74D4 /* CoreMedia.framework in Frameworks */,
 				50A7057C1930CC13006F2543 /* libcryptopp.a in Frameworks */,
 				5012B44A181FF6A6008D74D4 /* CoreVideo.framework in Frameworks */,
-				5012B448181FF69F008D74D4 /* AudioToolbox.framework in Frameworks */,
 				5012B446181FF697008D74D4 /* AVFoundation.framework in Frameworks */,
 				83F72F5E14A407170061CCFF /* UIKit.framework in Frameworks */,
 				83F72F6014A407170061CCFF /* Foundation.framework in Frameworks */,
@@ -549,6 +552,7 @@
 		83F72F5C14A407170061CCFF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50815B101941D2EA00399711 /* CoreAudio.framework */,
 				50A7057B1930CC13006F2543 /* libcryptopp.a */,
 				5012B44F181FF6C4008D74D4 /* AddressBook.framework */,
 				5012B450181FF6C4008D74D4 /* AddressBookUI.framework */,

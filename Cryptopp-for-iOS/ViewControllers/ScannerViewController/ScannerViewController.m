@@ -29,13 +29,13 @@
     _isReading = NO;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    dispatch_once(&_onceToken, ^{
-        [self addScanPointer];
-    });
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    dispatch_once(&_onceToken, ^{
+//        [self addScanPointer];
+//    });
+//}
 
 #pragma mark - Actions
 - (IBAction)dissmiss:(id)sender;

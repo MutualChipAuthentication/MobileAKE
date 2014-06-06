@@ -76,6 +76,7 @@ NSString *const kPublicKey = @"publicKey";
     {
         result = [NSString stringWithDefaultCString:MAC->EncryptCertKey()];
     }
+    NSLog(@"encrypted %@", result);
     return result;
 }
 
@@ -128,6 +129,7 @@ NSString *const kPublicKey = @"publicKey";
 }
 - (NSString *)ephemeralPublicKey
 {
+    cout << "ephemeral key " << MAC->GetEphemeralPublicKey() << endl;
     return [NSString stringWithDefaultCString:MAC->GetEphemeralPublicKey()];
 }
 

@@ -113,11 +113,11 @@ string MutualAuthenticationChip::EncryptCertKey(){
 	}
 	Integer Kx_test(Kx, AES::DEFAULT_KEYLENGTH);
 	//cout<<"PArt: "<<part<<" Klucz do szyfracji :"<<Kx_test<<endl;
-	this->cipher = edc.EncryptCertAndRa(cert_b, cert.size(),
+	this->cipher = edc.EncryptCertAndRa(cert_b, (int)cert.size(),
                                         rA, HashClass::size,
                                         Kx, AES::DEFAULT_KEYLENGTH);
     
-	cout<<"Part: "<<part<<" zaszyfrowal certyfikat i rA"<<endl;
+	cout<<"Part: "<<part<<" zaszyfrowal certyfikat i rA "<< cipher << endl;
     return cipher;
 }
 

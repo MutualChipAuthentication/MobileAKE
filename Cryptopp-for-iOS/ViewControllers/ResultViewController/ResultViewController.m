@@ -32,6 +32,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.sessionKeyView.text = self.sessionKey;
+    self.protocolRunTimeLabel.text = [NSString stringWithFormat:@"%f", self.protocolRunTime];
+    self.cryptoComputationTimeLabel.text = [NSString stringWithFormat:@"%f", self.cryptoComputionTime];
 }
 
 - (void)didReceiveMemoryWarning

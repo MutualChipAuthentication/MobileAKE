@@ -16,6 +16,7 @@
 @interface ScannerViewController : UIViewController
 @property (nonatomic, weak) id<ScannerViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIView *scannerView;
+- (void)startScanning;
 - (void)startRunning;
 - (void)stopRunning;
 - (IBAction)dissmiss:(id)sender;
